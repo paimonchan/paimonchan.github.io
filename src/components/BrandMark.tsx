@@ -1,21 +1,21 @@
 /**
  * BrandMark — the gateway's custom glyph.
  *
- * Sibling to paimon-tools' BrandMark (which draws `{ }` braces). Here we draw
- * a portal: a ring with an outward arrow, signalling "this site is a doorway
- * to the others". Same gradient tile, same stroke weight — same visual family,
- * distinct identity.
+ * Portal: a ring with an outward arrow, signalling "this site is a doorway to
+ * the others". Same honey gradient tile, same stroke weight as paimon-tools'
+ * mark — same visual family, distinct identity. A subtle drop glow on the tile
+ * edges gives it depth against the dark background.
  */
 export default function BrandMark({ size = 36, className = '' }: { size?: number; className?: string }) {
   return (
     <div
-      className={`accent-gradient relative flex items-center justify-center rounded-xl shadow-inner ${className}`}
+      className={`accent-gradient relative flex items-center justify-center rounded-lg shadow-[0_4px_16px_-4px_color-mix(in_srgb,var(--color-honey-400)_60%,transparent)] ${className}`}
       style={{ width: size, height: size }}
       aria-hidden="true"
     >
       <svg
-        width={size * 0.6}
-        height={size * 0.6}
+        width={size * 0.62}
+        height={size * 0.62}
         viewBox="0 0 24 24"
         fill="none"
         className="text-ink-950"

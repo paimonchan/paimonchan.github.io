@@ -21,7 +21,7 @@ function Gateway() {
   const [query, setQuery] = useState('')
   const filtered = useFilter(SITES_WITH_ICONS, query)
 
-  // "/" focuses the search box — a common shortcut for directory-style pages.
+  // "/" focuses the search box; Escape clears it.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       const target = e.target as HTMLElement | null
@@ -39,10 +39,15 @@ function Gateway() {
   }, [query])
 
   return (
-    <div className="flex min-h-screen flex-col bg-ink-950 text-ink-100">
+    <div className="bg-ambient flex min-h-screen flex-col text-ink-100">
       <Header />
       <main className="flex flex-1 flex-col">
-        <Hero query={query} onQueryChange={setQuery} matchCount={filtered.length} />
+        <Hero
+          query={query}
+          onQueryChange={setQuery}
+          matchCount={filtered.length}
+          total={SITES_WITH_ICONS.length}
+        />
         <SiteGrid sites={filtered} />
       </main>
       <Footer />

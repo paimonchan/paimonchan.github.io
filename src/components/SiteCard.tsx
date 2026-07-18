@@ -1,12 +1,13 @@
 /**
  * SiteCard — one io project rendered as a directory card.
  *
- * Visual language adapted from paimon-tools' Sidebar list item, scaled up for
- * a directory: hairline border, accent-gradient icon tile, status pill, and an
- * "Open ↗" affordance. The whole card is a link to the live site; the source
- * link is a separate, stop-propagation anchor so clicking it doesn't navigate.
+ * Modern bento-style: gradient icon tile with a soft honey glow, glass surface,
+ * hover lift + border glow. Density dialed up so a row of cards fills space
+ * instead of leaving air. The whole card is a link to the live site; the
+ * source link is a separate, stop-propagation anchor so clicking it doesn't
+ * navigate away.
  *
- * "soon" projects render muted and link to their repo (there's no live site).
+ * "soon" projects render muted and link to their repo (no live site).
  */
 import { ArrowUpRight, Code } from 'lucide-react'
 import type { SiteWithIcon } from '../sites.config'
@@ -21,62 +22,84 @@ export default function SiteCard({ site, index }: { site: SiteWithIcon; index: n
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      style={{ animationDelay: `${Math.min(index * 60, 360)}ms` }}
+      style={{ animationDelay: `${Math.min(index * 50, 300)}ms` }}
       className={[
         'group relative flex animate-[slide-up_0.25s_cubic-bezier(0.16,1,0.3,1)_both]',
-        'flex-col rounded-xl border bg-ink-900/60 p-5 transition-colors duration-150',
+        'flex-col rounded-2xl border p-4 transition-all duration-200',
+        'glass',
         isLive
-          ? 'border-ink-800 hover:border-honey-500/50 hover:bg-ink-800/50'
-          : 'border-ink-800/60 hover:border-ink-700 hover:bg-ink-900',
+          ? 'border-ink-700/60 hover:-translate-y-1 hover:border-honey-500/40 hover:shadow-lift'
+          : 'border-ink-800/60 hover:border-ink-700',
       ].join(' ')}
     >
+      {/* Honey glow that fades in on hover — only for live projects. */}
+      {isLive && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in srgb, var(--color-honey-400) 14%, transparent), transparent 70%)',
+          }}
+        />
+      )}
+
       {/* Header row: icon tile + status pill */}
-      <div className="flex items-start justify-between">
+      <div className="relative flex items-start justify-between">
         <div
           className={[
-            'flex h-11 w-11 items-center justify-center rounded-lg shadow-inner',
-            isLive ? 'accent-gradient' : 'bg-ink-800',
+            'flex h-10 w-10 items-center justify-center rounded-xl shadow-inner transition-transform duration-200',
+            isLive
+              ? 'accent-gradient group-hover:scale-110'
+              : 'bg-ink-800 ring-1 ring-ink-700/60',
           ].join(' ')}
         >
-          <Icon className={['h-5 w-5', isLive ? 'text-ink-950' : 'text-ink-500'].join(' ')} />
+          <Icon className={['h-[18px] w-[18px]', isLive ? 'text-ink-950' : 'text-ink-500'].join(' ')} />
         </div>
-
         <StatusPill status={site.status} />
       </div>
 
       {/* Name + tagline */}
-      <h3 className="mt-4 font-display text-[17px] font-600 leading-snug text-ink-50">
+      <h3 className="relative mt-3 font-display text-[15px] font-600 leading-tight text-ink-50">
         {site.name}
       </h3>
-      <p className="mt-0.5 text-[12px] font-500 text-honey-300/80">{site.tagline}</p>
+      <p
+        className={[
+          'relative mt-0.5 text-[11px] font-500',
+          isLive ? 'text-honey-300/85' : 'text-ink-500',
+        ].join(' ')}
+      >
+        {site.tagline}
+      </p>
 
-      {/* Description */}
-      <p className="mt-2.5 flex-1 text-[13px] leading-relaxed text-ink-400">{site.description}</p>
+      {/* Description — clamped to 2 lines so cards stay aligned. */}
+      <p className="relative mt-2 line-clamp-2 text-[12px] leading-relaxed text-ink-400">
+        {site.description}
+      </p>
 
       {/* Footer row: source link + open affordance */}
-      <div className="mt-4 flex items-center justify-between border-t border-ink-800/80 pt-3">
+      <div className="relative mt-3 flex items-center justify-between border-t border-ink-800/70 pt-2.5">
         <a
           href={site.repo}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="flex items-center gap-1.5 text-[11px] text-ink-500 transition-colors hover:text-ink-200"
+          className="flex items-center gap-1 text-[10px] text-ink-500 transition-colors hover:text-ink-200"
           aria-label={`View ${site.name} source on GitHub`}
         >
-          <Code className="h-3.5 w-3.5" />
-          <span>source</span>
+          <Code className="h-3 w-3" />
+          <span className="font-mono">src</span>
         </a>
-
         <span
           className={[
-            'flex items-center gap-1 text-[12px] font-500 transition-all',
+            'flex items-center gap-0.5 text-[11px] font-500 transition-all',
             isLive
               ? 'text-ink-300 group-hover:translate-x-0.5 group-hover:text-honey-200'
               : 'text-ink-500',
           ].join(' ')}
         >
           {isLive ? 'Open' : 'Repo'}
-          <ArrowUpRight className="h-3.5 w-3.5" />
+          <ArrowUpRight className="h-3 w-3" />
         </span>
       </div>
     </a>
@@ -86,15 +109,18 @@ export default function SiteCard({ site, index }: { site: SiteWithIcon; index: n
 function StatusPill({ status }: { status: 'live' | 'soon' }) {
   if (status === 'live') {
     return (
-      <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-600 uppercase tracking-wider text-emerald-300">
-        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+      <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-600 uppercase tracking-wider text-emerald-300">
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+        </span>
         live
       </span>
     )
   }
   return (
-    <span className="flex items-center gap-1.5 rounded-full border border-ink-700 bg-ink-800/60 px-2 py-0.5 text-[10px] font-600 uppercase tracking-wider text-ink-500">
-      <span className="h-1.5 w-1.5 rounded-full bg-ink-500" />
+    <span className="flex items-center gap-1.5 rounded-full border border-ink-700 bg-ink-800/60 px-1.5 py-0.5 text-[9px] font-600 uppercase tracking-wider text-ink-500">
+      <span className="h-1 w-1 rounded-full bg-ink-500" />
       soon
     </span>
   )

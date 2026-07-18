@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 /*
- * Warm honey on warm charcoal — the same palette as paimon-tools so the
- * gateway reads as one family of products.
+ * Paimon gateway theme.
  *
- * Structural work is done with 1px hairline borders, not drop shadows.
- * The honey accent is applied sparingly — active states and key actions only.
+ * Same ink/honey palette as paimon-tools so the product family reads as one
+ * line, but layered with modern primitives — ambient gradient mesh, glass blur,
+ * soft glows, gradient text — to make a directory feel alive instead of empty.
  *
- * NOTE: this is a verbatim copy of paimon-tools' theme tokens. Edit both
- * projects in lockstep if you ever change the design language.
+ * Structural work still leans on 1px hairlines; shadows are reserved for the
+ * brand accent (the honey glow) and hover lift.
  */
 
 @variant dark (&:where(.dark, .dark *));
 
-/* ── Custom theme ──────────────────────────────────── */
+/* ── Theme ─────────────────────────────────────────── */
 
 @theme {
   --color-ink-50: #f7f5f1;
@@ -47,50 +47,37 @@
   --shadow-kbd:
     0 1px 0 rgba(0, 0, 0, 0.4),
     inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  /* The signature honey glow — only on the brand accent and active states. */
+  --shadow-glow-honey: 0 0 0 1px color-mix(in srgb, var(--color-honey-500) 25%, transparent),
+    0 8px 30px -8px color-mix(in srgb, var(--color-honey-400) 45%, transparent);
+  --shadow-lift: 0 16px 40px -16px rgba(0, 0, 0, 0.6);
 
   --animate-fade-in: fade-in 0.18s ease-out;
   --animate-scale-in: scale-in 0.14s cubic-bezier(0.16, 1, 0.3, 1);
   --animate-slide-up: slide-up 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
 }
 
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
 }
-
 @keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.9;  transform: scale(1.08); }
 }
 
-/* ── Base styles ───────────────────────────────────── */
+/* ── Base ──────────────────────────────────────────── */
 
-:root {
-  color-scheme: dark;
-}
+:root { color-scheme: dark; }
 
 html {
   font-family: 'Inter', system-ui, sans-serif;
@@ -102,21 +89,14 @@ html {
 body {
   background-color: var(--color-ink-950);
   color: var(--color-ink-100);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
 
-/* Inter sits a little low; nudge it for visual balance with the heavy UI */
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
   font-family: 'Space Grotesk', 'Inter', sans-serif;
   letter-spacing: -0.01em;
 }
 
-/* Honey selection to match the accent */
 ::selection {
   background-color: color-mix(in srgb, var(--color-honey-400) 30%, transparent);
   color: var(--color-honey-50);
@@ -127,26 +107,16 @@ h4 {
   scrollbar-width: thin;
   scrollbar-color: var(--color-ink-600) transparent;
 }
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   border-radius: 9999px;
   background-color: var(--color-ink-600);
   border: 2px solid var(--color-ink-950);
 }
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-ink-500);
-}
+::-webkit-scrollbar-thumb:hover { background-color: var(--color-ink-500); }
 
-/* Focus ring — visible only for keyboard navigation */
-*:focus {
-  outline: none;
-}
+*:focus { outline: none; }
 *:focus-visible {
   outline: 2px solid var(--color-honey-500);
   outline-offset: 2px;
@@ -155,7 +125,6 @@ h4 {
 
 /* ── Component utilities ───────────────────────────── */
 
-/* Keyboard key affordance — used for shortcut hints throughout the UI */
 .kbd {
   display: inline-flex;
   height: 1.25rem;
@@ -173,26 +142,54 @@ h4 {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
 }
 
-/* Hairline divider that adapts to context */
-.hairline {
-  border-color: color-mix(in srgb, var(--color-ink-700) 60%, transparent);
-}
+.hairline { border-color: color-mix(in srgb, var(--color-ink-700) 60%, transparent); }
 
-/* The signature accent gradient, used only on the brand mark */
+/* The signature accent gradient — used on brand mark and gradient text. */
 .accent-gradient {
   background-image: linear-gradient(135deg, #eec35a 0%, #e7ac34 50%, #d9911e 100%);
 }
 
-/* Subtle dotted grid background for empty / canvas states */
+/* Gradient text: warm honey → amber. Use sparingly, only on display headings. */
+.text-gradient-honey {
+  background-image: linear-gradient(135deg, #f4d98a 0%, #e7ac34 45%, #d9911e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/*
+ * Ambient gradient mesh behind the page. Two honey/amber blobs + a cool tint,
+ * blurred and faded so the foreground reads crisp. Sits behind everything via
+ * .bg-ambient + a fixed-position wrapper.
+ */
+.bg-ambient {
+  background-color: var(--color-ink-950);
+  background-image:
+    radial-gradient(ellipse 50% 40% at 18% 8%, color-mix(in srgb, var(--color-honey-500) 22%, transparent), transparent 70%),
+    radial-gradient(ellipse 45% 35% at 85% 12%, color-mix(in srgb, var(--color-honey-600) 18%, transparent), transparent 65%),
+    radial-gradient(ellipse 60% 50% at 50% 110%, color-mix(in srgb, var(--color-honey-700) 14%, transparent), transparent 70%);
+}
+
+/* Glassmorphic surface: translucent panel with subtle blur + hairline edge. */
+.glass {
+  background-color: color-mix(in srgb, var(--color-ink-900) 55%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+/* Subtle dotted grid for empty / canvas regions. */
 .bg-dotgrid {
   background-image: radial-gradient(circle, var(--color-ink-600) 1px, transparent 1px);
   background-size: 16px 16px;
 }
 
-/* Hide scrollbar but keep scrolling — used in dense horizontal areas */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  scrollbar-width: none;
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
