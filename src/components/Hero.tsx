@@ -30,20 +30,20 @@ export default function Hero({
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pt-8 pb-5 sm:px-5 md:pt-12 md:pb-7">
       <div className="text-center">
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-honey-400/80">
+        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-honey-400">
           paimonchan.io
         </p>
-        <h1 className="mt-2 font-display text-[28px] font-700 leading-[1.1] tracking-tight text-ink-50 md:text-[36px]">
+        <h1 className="mx-auto mt-3 max-w-2xl font-display text-[32px] font-700 leading-[1.05] tracking-tight text-ink-50 balance md:text-[44px]">
           Every project, one doorway.
         </h1>
-        <p className="mx-auto mt-3 max-w-md text-pretty text-[13px] leading-relaxed text-ink-400 md:text-sm">
+        <p className="mx-auto mt-3.5 max-w-md text-pretty text-[13.5px] leading-relaxed text-ink-400 md:text-[14.5px]">
           Privacy-first browser tools, real-time apps, and whatever comes next.
           Built in the open by{' '}
           <a
             href="https://github.com/paimonchan"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-honey-400 underline decoration-honey-500/40 underline-offset-2 transition-colors hover:decoration-honey-400"
+            className="font-500 text-honey-400 underline decoration-honey-500/40 underline-offset-2 transition-colors hover:decoration-honey-400"
           >
             @paimonchan
           </a>

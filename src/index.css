@@ -46,6 +46,13 @@
     0 1px 0 rgba(0, 0, 0, 0.4),
     inset 0 -1px 0 rgba(255, 255, 255, 0.05);
 
+  /* Layered depth tokens. Subtle by design - depth here comes from
+     stacking two shadows (a tight inner ring + a soft outer cast), the same
+     trick Linear and Stripe use. Never a single hard drop shadow. */
+  --shadow-card: 0 1px 0 0 rgba(255, 255, 255, 0.03) inset, 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-card-hover: 0 1px 0 0 rgba(255, 255, 255, 0.05) inset, 0 12px 28px -12px rgba(0, 0, 0, 0.7);
+  --shadow-tile: 0 1px 0 0 rgba(255, 255, 255, 0.25) inset, 0 4px 10px -3px rgba(0, 0, 0, 0.5);
+
   --animate-fade-in: fade-in 0.15s ease-out;
   --animate-slide-up: slide-up 0.2s ease-out;
 }
