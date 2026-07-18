@@ -22,7 +22,15 @@ import {
   type LucideProps,
 } from 'lucide-react'
 
-import { SITES, CATEGORIES } from './lib/seo'
+import { SITES } from './lib/seo'
+
+/**
+ * Minimum number of projects before the search filter is worth showing.
+ * Below this count the user can scan the list faster than they can type a
+ * query — the filter adds UI weight without earning its keep. 5 is the
+ * rough point where scanning becomes slower than typing.
+ */
+export const SEARCH_THRESHOLD = 5
 
 // Re-shape the plain-JS entry into a typed view-model. `as const` on the
 // imported array would lose the literal types after the .js boundary, so we
@@ -30,7 +38,12 @@ import { SITES, CATEGORIES } from './lib/seo'
 export interface SiteEntry {
   id: string
   name: string
-  category: (typeof CATEGORIES)[number]
+  /**
+   * Free-form label shown as a small badge on the card (e.g. "Tool", "App").
+   * NOT used for section grouping anymore — grouping is by `status` now.
+   * Kept as `string` so adding a new label doesn't require editing a union.
+   */
+  category: string
   tagline: string
   description: string
   url: string
@@ -70,5 +83,3 @@ export const SITES_WITH_ICONS: SiteWithIcon[] = (SITES as SiteEntry[]).map((s) =
   ...s,
   Icon: iconFor(s.id),
 }))
-
-export { CATEGORIES }

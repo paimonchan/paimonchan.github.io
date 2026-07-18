@@ -1,17 +1,20 @@
 /**
  * App — root component for the gateway.
  *
- * Single-page directory: Header, Hero (with the search filter), the grouped
- * SiteGrid, and a Footer. The theme effect syncs the dark class on <html>.
+ * Single-page directory: Header, Hero (with conditional search filter), the
+ * status-grouped SiteGrid, and a Footer. The theme effect syncs the dark
+ * class on <html>.
  *
  * The search query is the only piece of top-level state — it flows down to the
- * Hero (controlled input) and the grid (filtered list).
+ * Hero (controlled input) and the grid (filtered list). The filter UI itself
+ * only appears once the project count crosses SEARCH_THRESHOLD; below that the
+ * raw list is faster to scan than to query.
  */
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { ThemeEffect } from './stores/theme-store'
 import { useFilter } from './hooks/useFilter'
-import { SITES_WITH_ICONS } from './sites.config'
+import { SITES_WITH_ICONS, SEARCH_THRESHOLD } from './sites.config'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import SiteGrid from './components/SiteGrid'
@@ -19,10 +22,24 @@ import Footer from './components/Footer'
 
 function Gateway() {
   const [query, setQuery] = useState('')
+
+  const liveCount = useMemo(
+    () => SITES_WITH_ICONS.filter((s) => s.status === 'live').length,
+    []
+  )
+  const soonCount = useMemo(
+    () => SITES_WITH_ICONS.filter((s) => s.status === 'soon').length,
+    []
+  )
+
+  // Only render the search box when filtering would actually pay off.
+  const showSearch = SITES_WITH_ICONS.length >= SEARCH_THRESHOLD
+
   const filtered = useFilter(SITES_WITH_ICONS, query)
 
-  // "/" focuses the search box; Escape clears it.
+  // "/" focuses the search box; Escape clears it. Skip when there's no box.
   useEffect(() => {
+    if (!showSearch) return
     function onKey(e: KeyboardEvent) {
       const target = e.target as HTMLElement | null
       const typing = target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA'
@@ -36,7 +53,7 @@ function Gateway() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [query])
+  }, [query, showSearch])
 
   return (
     <div className="bg-ambient flex min-h-screen flex-col text-ink-100">
@@ -46,7 +63,9 @@ function Gateway() {
           query={query}
           onQueryChange={setQuery}
           matchCount={filtered.length}
-          total={SITES_WITH_ICONS.length}
+          liveCount={liveCount}
+          soonCount={soonCount}
+          showSearch={showSearch}
         />
         <SiteGrid sites={filtered} />
       </main>

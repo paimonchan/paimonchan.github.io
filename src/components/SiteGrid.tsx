@@ -1,26 +1,26 @@
 /**
- * SiteGrid — renders the (filtered) site list, grouped by section.
+ * SiteGrid — renders the (filtered) site list, grouped by STATUS, not category.
  *
- * Two render modes to avoid the "1 card in a 3-col grid = 2/3 empty" problem:
+ * Two sections, in this order:
+ *   - **Live** — full bento cards in an auto-fit grid (cards stretch to fill
+ *     the row; no holes when a section has fewer items than columns).
+ *   - **Coming next** — compact inline strip (icon + name + tagline + arrow).
+ *     Better fit for placeholders than full cards, and much denser.
  *
- *  - **Live projects**: full bento cards in an auto-fit grid (CSS grid with
- *    minmax). Cards size to fill the row — no fixed 3-col layout that would
- *    leave holes when there are fewer items than columns.
- *  - **Coming next**: a compact horizontal strip. Each item is a small inline
- *    pill linking to its repo — much denser than a card and a better fit for
- *    "this doesn't exist yet" placeholders.
+ * Why status not category: with only a few projects, splitting by category
+ * (Tools / Apps / …) just adds header noise — each section ends up with one
+ * card and a lot of empty space. The category still shows as a small label
+ * on each card, so the information isn't lost, only the section break.
  *
  * Empty sections (wiped out by a filter) are skipped so the page stays dense.
  */
 import { ArrowUpRight } from 'lucide-react'
-import { CATEGORIES, type SiteWithIcon } from '../sites.config'
+import type { SiteWithIcon } from '../sites.config'
 import SiteCard from './SiteCard'
 
 interface SiteGridProps {
   sites: SiteWithIcon[]
 }
-
-const SOON_CATEGORY = 'Coming soon'
 
 export default function SiteGrid({ sites }: SiteGridProps) {
   if (sites.length === 0) {
@@ -31,37 +31,30 @@ export default function SiteGrid({ sites }: SiteGridProps) {
     )
   }
 
-  // Split: full-card sections vs. the "soon" inline strip.
-  const cardSites = sites.filter((s) => s.category !== SOON_CATEGORY)
-  const soonSites = sites.filter((s) => s.category === SOON_CATEGORY)
+  const liveSites = sites.filter((s) => s.status === 'live')
+  const soonSites = sites.filter((s) => s.status === 'soon')
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-12 sm:px-5">
-      {/* Full-card sections (Tools, Apps, …) grouped by category */}
-      {CATEGORIES.filter((c) => c !== SOON_CATEGORY).map((category) => {
-        const inCategory = cardSites.filter((s) => s.category === category)
-        if (inCategory.length === 0) return null
-        return (
-          <section key={category} className="mb-6 last:mb-0">
-            <SectionHeader label={category} count={inCategory.length} />
-            <div
-              className="grid gap-3 sm:gap-3.5"
-              style={{
-                gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
-              }}
-            >
-              {inCategory.map((site, i) => (
-                <SiteCard key={site.id} site={site} index={i} />
-              ))}
-            </div>
-          </section>
-        )
-      })}
+      {liveSites.length > 0 && (
+        <section className="mb-6 last:mb-0">
+          <SectionHeader label="Live" count={liveSites.length} />
+          <div
+            className="grid gap-3 sm:gap-3.5"
+            style={{
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+            }}
+          >
+            {liveSites.map((site, i) => (
+              <SiteCard key={site.id} site={site} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
 
-      {/* Coming next — compact inline strip, not a card grid */}
       {soonSites.length > 0 && (
         <section className="mb-6 last:mb-0">
-          <SectionHeader label={SOON_CATEGORY} count={soonSites.length} />
+          <SectionHeader label="Coming next" count={soonSites.length} />
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
             {soonSites.map((site, i) => (
               <SoonItem key={site.id} site={site} index={i} />

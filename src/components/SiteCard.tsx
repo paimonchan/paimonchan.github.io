@@ -5,8 +5,12 @@
  * hover lift + border glow. Density dialed up with a category label and
  * feature badges so each card carries real information, not air.
  *
- * The whole card is a link to the live site; the source link is a separate,
- * stop-propagation anchor so clicking it doesn't navigate away.
+ * Navigation policy:
+ *   - Main click → SAME TAB. Live sites are same-domain siblings, so opening
+ *     them feels like internal navigation, and same-tab is the accessible
+ *     default. Power users can still cmd/ctrl-click for a new tab.
+ *   - Source link → NEW TAB. The source repo is external (github.com/…) and
+ *     a reference, not the destination — keep the gateway open behind it.
  *
  * "soon" projects render muted and link to their repo (no live site).
  */
@@ -17,12 +21,14 @@ export default function SiteCard({ site, index }: { site: SiteWithIcon; index: n
   const { Icon } = site
   const isLive = site.status === 'live'
   const href = isLive ? site.url : site.repo
+  // Live = same-tab navigation (internal-feeling); soon = repo (new tab,
+  // external reference). Matches the policy in the file header.
+  const openInNewTab = !isLive
 
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...(openInNewTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       style={{ animationDelay: `${Math.min(index * 50, 300)}ms` }}
       className={[
         'group relative flex animate-[slide-up_0.25s_cubic-bezier(0.16,1,0.3,1)_both]',
@@ -102,9 +108,9 @@ export default function SiteCard({ site, index }: { site: SiteWithIcon; index: n
         </div>
       )}
 
-      {/* Footer row: source link + open affordance */}
-      <div className="relative mt-auto flex items-center justify-between border-t border-ink-800/70 pt-2.5"
-           style={{ marginTop: '0.75rem' }}>
+      {/* Footer row: source link + open affordance. mt-auto pins it to the
+          bottom so cards of different heights keep their footers aligned. */}
+      <div className="relative mt-auto flex items-center justify-between border-t border-ink-800/70 pt-2.5">
         <a
           href={site.repo}
           target="_blank"
