@@ -50,10 +50,11 @@ export default function Hero({
           .
         </p>
 
-        {/* Stats line */}
+        {/* Stats line - honey dot matches the brand accent (the only place
+            honey appears outside the brand mark and hover bar). */}
         <div className="mt-3 flex items-center justify-center gap-2 text-[11px] text-ink-500">
           <span className="flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            <span className="h-1.5 w-1.5 rounded-full bg-honey-400" />
             <span className="font-mono text-ink-300">{liveCount}</span> live
           </span>
           {soonCount > 0 && (

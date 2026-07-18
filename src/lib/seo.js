@@ -41,7 +41,11 @@ export const CATEGORIES = ['Tools', 'Apps', 'Coming soon']
  * @property {'live'|'soon'} status  'live' = has a working site; 'soon' = placeholder.
  * @property {string[]} keywords   Lowercase search tokens for the filter box.
  * @property {string[]} features   Short capability badges shown on the card
- *                                  (2-4 items). Keep them scannable — noun-ish.
+ *                                  (2-4 items). Keep them scannable - noun-ish.
+ * @property {string} slug         The URL path segment that identifies this
+ *                                  project, shown as a mono badge (e.g.
+ *                                  'paimon-tools'). 'soon' projects get a '*'
+ *                                  suffix to signal "not there yet".
  */
 
 /** @type {SiteEntry[]} */
@@ -58,6 +62,7 @@ export const SITES = [
     status: 'live',
     keywords: ['json', 'csv', 'excel', 'xlsx', 'convert', 'converter', 'data', 'playground', 'code'],
     features: ['JSON/CSV/XLSX', 'Code playground', '100% client-side'],
+    slug: 'paimon-tools',
   },
   {
     id: 'paimon-board',
@@ -71,6 +76,7 @@ export const SITES = [
     status: 'live',
     keywords: ['whiteboard', 'board', 'collab', 'draw', 'sketch', 'realtime', 'webrtc', 'yjs'],
     features: ['P2P realtime', 'No server', 'Excalidraw engine'],
+    slug: 'paimon-board',
   },
   {
     id: 'paimonitor',
@@ -84,6 +90,7 @@ export const SITES = [
     status: 'soon',
     keywords: ['monitor', 'monitoring', 'dashboard', 'uptime', 'region', 'status'],
     features: ['Next.js + Go', 'Multi-region', 'Realtime status'],
+    slug: 'paimonitor',
   },
 ]
 

@@ -63,7 +63,7 @@ export default function SiteCard({ site, index }: SiteCardProps) {
         tabIndex={-1}
       />
 
-      {/* Header: icon tile + editorial number + status pill */}
+      {/* Header: icon tile + editorial number + slug badge */}
       <div className="relative flex items-start justify-between gap-2">
         <div className="flex items-center gap-2.5">
           <div
@@ -76,7 +76,7 @@ export default function SiteCard({ site, index }: SiteCardProps) {
           </div>
           <span className="font-mono text-[10px] text-ink-600">{number}</span>
         </div>
-        <StatusPill status={site.status} />
+        <SlugBadge slug={site.slug} isLive={isLive} />
       </div>
 
       {/* Name + tagline */}
@@ -140,19 +140,30 @@ export default function SiteCard({ site, index }: SiteCardProps) {
   )
 }
 
-function StatusPill({ status }: { status: 'live' | 'soon' }) {
-  if (status === 'live') {
-    return (
-      <span className="flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-600 uppercase tracking-wider text-emerald-300">
-        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-        live
-      </span>
-    )
-  }
+/**
+ * SlugBadge - replaces the old "live/soon" pill.
+ *
+ * Showing a green "live" dot is a strong auto-generated aesthetic tell. This
+ * instead shows the URL path segment ('/paimon-tools'), which is real info -
+ * it tells the visitor where this project lives and reinforces the page's
+ * "doorway" concept. Same mono treatment as the feature chips for continuity.
+ *
+ * For not-yet-shipped projects the slug gets a '*' suffix (the universal
+ * "footnote / placeholder" mark in editorial typography) instead of a status
+ * word, keeping the visual treatment identical.
+ */
+function SlugBadge({ slug, isLive }: { slug: string; isLive: boolean }) {
   return (
-    <span className="flex shrink-0 items-center gap-1.5 rounded-full border border-ink-700 bg-ink-800/60 px-1.5 py-0.5 text-[9px] font-600 uppercase tracking-wider text-ink-500">
-      <span className="h-1 w-1 rounded-full bg-ink-500" />
-      soon
+    <span
+      className={[
+        'shrink-0 rounded border px-1.5 py-0.5 font-mono text-[9.5px]',
+        isLive
+          ? 'border-ink-800 bg-ink-900 text-ink-400'
+          : 'border-ink-900 bg-ink-950 text-ink-600',
+      ].join(' ')}
+    >
+      /{slug}
+      {!isLive && <span className="text-ink-600">*</span>}
     </span>
   )
 }

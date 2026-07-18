@@ -51,6 +51,7 @@ export interface SiteEntry {
   status: 'live' | 'soon'
   keywords: string[]
   features: string[]
+  slug: string
 }
 
 export type SiteWithIcon = SiteEntry & {
