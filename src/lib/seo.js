@@ -40,6 +40,8 @@ export const CATEGORIES = ['Tools', 'Apps', 'Coming soon']
  * @property {string} repo         Absolute URL of the source repo.
  * @property {'live'|'soon'} status  'live' = has a working site; 'soon' = placeholder.
  * @property {string[]} keywords   Lowercase search tokens for the filter box.
+ * @property {string[]} features   Short capability badges shown on the card
+ *                                  (2-4 items). Keep them scannable — noun-ish.
  */
 
 /** @type {SiteEntry[]} */
@@ -55,6 +57,7 @@ export const SITES = [
     repo: 'https://github.com/paimonchan/paimon-tools',
     status: 'live',
     keywords: ['json', 'csv', 'excel', 'xlsx', 'convert', 'converter', 'data', 'playground', 'code'],
+    features: ['JSON · CSV · XLSX', 'Code playground', '100% client-side'],
   },
   {
     id: 'paimon-board',
@@ -67,6 +70,7 @@ export const SITES = [
     repo: 'https://github.com/paimonchan/paimon-board',
     status: 'live',
     keywords: ['whiteboard', 'board', 'collab', 'draw', 'sketch', 'realtime', 'webrtc', 'yjs'],
+    features: ['P2P realtime', 'No server', 'Excalidraw engine'],
   },
   {
     id: 'paimonitor',
@@ -79,6 +83,7 @@ export const SITES = [
     repo: 'https://github.com/paimonchan/paimonitor',
     status: 'soon',
     keywords: ['monitor', 'monitoring', 'dashboard', 'uptime', 'region', 'status'],
+    features: ['Next.js + Go', 'Multi-region', 'Realtime status'],
   },
 ]
 

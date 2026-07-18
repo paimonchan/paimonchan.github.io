@@ -37,6 +37,7 @@ export interface SiteEntry {
   repo: string
   status: 'live' | 'soon'
   keywords: string[]
+  features: string[]
 }
 
 export type SiteWithIcon = SiteEntry & {
