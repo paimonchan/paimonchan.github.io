@@ -90,14 +90,14 @@ export const SITES = [
 /* ── Home page meta ────────────────────────────────── */
 
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.svg`
-const DEFAULT_OG_ALT = 'Paimon - a hub of io projects by paimonchan'
+const DEFAULT_OG_ALT = 'paimonchan.io - a hub of io projects by paimonchan'
 
 export const HOME_SEO = {
-  title: 'Paimon - a hub of io projects',
+  title: 'paimonchan.io - a hub of io projects',
   description:
     'A directory of paimonchan\'s io projects: private in-browser data tools, real-time collaborative whiteboards, and more. One landing page, every site.',
   keywords:
-    'paimon, paimonchan, paimon tools, paimon board, io projects, github pages, web tools, browser tools, json csv excel, whiteboard',
+    'paimonchan, paimonchan.io, paimon tools, paimon board, io projects, github pages, web tools, browser tools, json csv excel, whiteboard',
   ogImage: DEFAULT_OG_IMAGE,
   ogImageAlt: DEFAULT_OG_ALT,
   // Keyword-rich, crawlable HTML for the <noscript> / prerendered body.
@@ -110,7 +110,7 @@ function buildHomeBodyHtml() {
     (s) =>
       `      <li><a href="${s.url}"><strong>${s.name}</strong> - ${s.tagline}. ${s.description}</a></li>`
   ).join('\n')
-  return `<h1>Paimon - a hub of io projects</h1>
+  return `<h1>paimonchan.io - a hub of io projects</h1>
   <p>A directory of paimonchan's io projects. Every site runs in your browser. Privacy-first, no tracking, no sign-up.</p>
   <h2>Projects</h2>
   <ul>
@@ -121,40 +121,55 @@ ${items}
 /* ── JSON-LD structured data ───────────────────────── */
 
 /**
- * Builds the structured data for the home page: a WebSite node plus an
- * ItemList enumerating every io project. Search engines use ItemList for
- * rich "site links"-style results.
+ * Builds the structured data for the home page.
+ *
+ * Two graphs:
+ *  - CollectionPage: the gateway itself, with an ItemList of every project as
+ *    its mainEntity. Search engines use this to understand "this page is an
+ *    index of these things", which is exactly what a directory is.
+ *  - Person: the author/publisher, so Google can link the site to its author.
+ *
+ * Each ItemList entry is a full SoftwareApplication (not a bare ListItem), so
+ * individual projects can show up as rich results on their own.
  */
 export function jsonLdFor() {
-  const website = {
+  const author = { '@type': 'Person', name: 'paimonchan', url: 'https://github.com/paimonchan' }
+
+  const applications = SITES.map((s, i) => ({
+    '@type': 'SoftwareApplication',
+    position: i + 1,
+    name: s.name,
+    description: s.description,
+    url: s.url,
+    applicationCategory: s.category === 'Tools' ? 'DeveloperApplication' : 'WebApplication',
+    operatingSystem: 'Any (web browser)',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    author,
+  }))
+
+  const collectionPage = {
     '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Paimon',
+    '@type': 'CollectionPage',
+    name: 'paimonchan.io',
     url: `${SITE_URL}/`,
     description: HOME_SEO.description,
     inLanguage: 'en',
-    author: { '@type': 'Person', name: 'paimonchan' },
-    publisher: { '@type': 'Person', name: 'paimonchan' },
+    isPartOf: { '@type': 'WebSite', name: 'paimonchan.io', url: `${SITE_URL}/` },
+    author,
+    publisher: author,
+    mainEntity: {
+      '@type': 'ItemList',
+      name: 'io projects',
+      numberOfItems: SITES.length,
+      itemListElement: applications,
+    },
   }
 
-  const itemList = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: 'Paimon io projects',
-    itemListElement: SITES.map((s, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: s.name,
-      url: s.url,
-      description: s.description,
-    })),
-  }
-
-  return [website, itemList]
+  return [collectionPage]
 }
 
 /**
- * Breadcrumb for the gateway itself — just a single root node, since this is
+ * Breadcrumb for the gateway itself - just a single root node, since this is
  * the top of the hierarchy. Kept as a separate JSON-LD block to match the
  * paimon-tools token layout and to give crawlers an explicit root breadcrumb.
  */
@@ -166,7 +181,7 @@ export function breadcrumbLdFor() {
       {
         '@type': 'ListItem',
         position: 1,
-        name: 'Paimon',
+        name: 'paimonchan.io',
         item: `${SITE_URL}/`,
       },
     ],
@@ -186,7 +201,7 @@ export function noscriptBodyFor() {
         `      <li><a href="${s.url}">${s.name}</a> - ${s.tagline}</li>`
     )
     .join('\n')
-  return `<h1>Paimon - a hub of io projects</h1>
+  return `<h1>paimonchan.io - a hub of io projects</h1>
     <p>${HOME_SEO.description}</p>
     <p>This page normally shows an interactive directory of sites. Without
       JavaScript you can still reach them directly:</p>

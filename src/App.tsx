@@ -58,7 +58,7 @@ function Gateway() {
   return (
     <div className="flex min-h-screen flex-col bg-ink-950 text-ink-100">
       <Header />
-      <main className="flex flex-1 flex-col">
+      <main id="main" className="flex flex-1 flex-col">
         <Hero
           query={query}
           onQueryChange={setQuery}

@@ -1,10 +1,11 @@
 /**
  * SiteCard - one io project rendered as a directory card.
  *
- * Flat by design: solid surface, hairline border, a quiet hover that just
- * shifts the border and arrow. No glow, lift, or scale - those piled-up
+ * Flat by design: solid surface, hairline border, a quiet hover that lights
+ * up the left accent bar (a small nod to paimon-tools' sidebar selection
+ * indicator) and shifts the arrow. No glow, lift, or scale - those piled-up
  * effects are exactly what makes a page read as auto-generated. The card's
- * only accent is the gradient icon tile.
+ * only accent colors are the gradient icon tile and the hover accent bar.
  *
  * Navigation policy:
  *   - Main click -> SAME TAB for live sites (same-domain sibling, feels like
@@ -12,30 +13,58 @@
  *   - Source link -> NEW TAB (external github.com reference).
  *
  * "soon" cards render muted and link to their repo (no live site yet).
+ *
+ * Wrapped in <article> with an accessible name so the card grid is a real
+ * list of landmarks for assistive tech, not just divs.
  */
 import { ArrowRight, ExternalLink, Code } from 'lucide-react'
 import type { SiteWithIcon } from '../sites.config'
 
-export default function SiteCard({ site, index }: { site: SiteWithIcon; index: number }) {
+interface SiteCardProps {
+  site: SiteWithIcon
+  index: number
+}
+
+export default function SiteCard({ site, index }: SiteCardProps) {
   const { Icon } = site
   const isLive = site.status === 'live'
   const href = isLive ? site.url : site.repo
+  // Zero-padded editorial index (01, 02, ...) - subtle, very human touch.
+  const number = String(index + 1).padStart(2, '0')
 
   return (
-    <a
-      href={href}
-      {...(!isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+    <article
+      aria-label={site.name}
       style={{ animationDelay: `${Math.min(index * 40, 240)}ms` }}
       className={[
-        'group relative flex animate-[slide-up_0.2s_ease-out_both] flex-col rounded-lg border p-4',
+        'group relative flex animate-[slide-up_0.2s_ease-out_both] flex-col overflow-hidden rounded-lg border p-4',
         'transition-colors duration-150',
         isLive
           ? 'border-ink-800 bg-ink-900 hover:border-ink-700 hover:bg-ink-900/80'
           : 'border-ink-900 bg-ink-950 hover:border-ink-800',
       ].join(' ')}
     >
-      {/* Header: icon tile + status pill */}
-      <div className="flex items-start justify-between gap-2">
+      {/* Left accent bar - only lights up on hover. Hommage to paimon-tools. */}
+      <span
+        aria-hidden
+        className={[
+          'absolute inset-y-0 left-0 w-[2px] bg-honey-400 transition-opacity duration-150',
+          isLive ? 'opacity-0 group-hover:opacity-100' : 'opacity-0',
+        ].join(' ')}
+      />
+
+      {/* The whole card is a link, but we render a real <a> for accessibility
+          and SEO. The article is positioned/overlaid via this stretched link. */}
+      <a
+        href={href}
+        {...(!isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        className="absolute inset-0"
+        aria-label={`${isLive ? 'Open' : 'View repo for'} ${site.name} - ${site.tagline}`}
+        tabIndex={-1}
+      />
+
+      {/* Header: icon tile + editorial number + status pill */}
+      <div className="relative flex items-start justify-between gap-2">
         <div className="flex items-center gap-2.5">
           <div
             className={[
@@ -45,29 +74,27 @@ export default function SiteCard({ site, index }: { site: SiteWithIcon; index: n
           >
             <Icon className={['h-[17px] w-[17px]', isLive ? 'text-ink-950' : 'text-ink-500'].join(' ')} />
           </div>
-          <span className="font-mono text-[9px] uppercase tracking-wider text-ink-600">
-            {site.category}
-          </span>
+          <span className="font-mono text-[10px] text-ink-600">{number}</span>
         </div>
         <StatusPill status={site.status} />
       </div>
 
       {/* Name + tagline */}
-      <h3 className="mt-3 font-display text-[15px] font-600 leading-tight text-ink-50">
+      <h3 className="relative mt-3 font-display text-[15px] font-600 leading-tight text-ink-50">
         {site.name}
       </h3>
-      <p className={['mt-0.5 text-[11px] font-500', isLive ? 'text-honey-400' : 'text-ink-500'].join(' ')}>
+      <p className={['relative mt-0.5 text-[11px] font-500', isLive ? 'text-honey-400' : 'text-ink-500'].join(' ')}>
         {site.tagline}
       </p>
 
       {/* Description */}
-      <p className="mt-2 line-clamp-2 text-[12px] leading-relaxed text-ink-400">
+      <p className="relative mt-2 line-clamp-2 text-[12px] leading-relaxed text-ink-400">
         {site.description}
       </p>
 
       {/* Feature chips */}
       {site.features.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-1">
+        <div className="relative mt-3 flex flex-wrap gap-1">
           {site.features.map((f) => (
             <span
               key={f}
@@ -80,14 +107,14 @@ export default function SiteCard({ site, index }: { site: SiteWithIcon; index: n
       )}
 
       {/* Footer: source link + open affordance. mt-auto pins it to bottom. */}
-      <div className="mt-auto flex items-center justify-between border-t border-ink-800/80 pt-2.5"
+      <div className="relative mt-auto flex items-center justify-between border-t border-ink-800/80 pt-2.5"
            style={{ marginTop: '0.75rem' }}>
         <a
           href={site.repo}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="flex items-center gap-1 text-[10px] text-ink-500 transition-colors hover:text-ink-200"
+          className="z-10 flex items-center gap-1 text-[10px] text-ink-500 transition-colors hover:text-ink-200"
           aria-label={`View ${site.name} source on GitHub`}
         >
           <Code className="h-3 w-3" />
@@ -109,7 +136,7 @@ export default function SiteCard({ site, index }: { site: SiteWithIcon; index: n
           )}
         </span>
       </div>
-    </a>
+    </article>
   )
 }
 

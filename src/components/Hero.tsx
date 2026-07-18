@@ -30,10 +30,13 @@ export default function Hero({
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pt-8 pb-5 sm:px-5 md:pt-12 md:pb-7">
       <div className="text-center">
-        <h1 className="font-display text-[26px] font-700 leading-tight tracking-tight text-ink-50 md:text-[32px]">
-          One doorway to every io project.
+        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-honey-400/80">
+          paimonchan.io
+        </p>
+        <h1 className="mt-2 font-display text-[28px] font-700 leading-[1.1] tracking-tight text-ink-50 md:text-[36px]">
+          Every project, one doorway.
         </h1>
-        <p className="mx-auto mt-2 max-w-md text-pretty text-[13px] leading-relaxed text-ink-400 md:text-sm">
+        <p className="mx-auto mt-3 max-w-md text-pretty text-[13px] leading-relaxed text-ink-400 md:text-sm">
           Privacy-first browser tools, real-time apps, and whatever comes next.
           Built in the open by{' '}
           <a
