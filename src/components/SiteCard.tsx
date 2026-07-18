@@ -55,11 +55,18 @@ export default function SiteCard({ site, index }: SiteCardProps) {
         ].join(' ')}
       />
 
-      {/* The whole card is a link for accessibility/SEO. Stretched overlay. */}
+      {/*
+        The whole card is a link for accessibility/SEO. Stretched overlay sits
+        ABOVE the visual content (z-10) so clicks anywhere on the card - name,
+        tagline, description, chips, padding - all navigate. Content elements
+        are position:relative without z, so they paint below this overlay and
+        the cursor always hits the link. The source link below uses z-20 to
+        stay above the overlay so it stays clickable on its own.
+      */}
       <a
         href={href}
         {...(!isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        className="absolute inset-0"
+        className="absolute inset-0 z-10"
         aria-label={`${isLive ? 'Open' : 'View repo for'} ${site.name} - ${site.tagline}`}
         tabIndex={-1}
       />
@@ -116,7 +123,7 @@ export default function SiteCard({ site, index }: SiteCardProps) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="z-10 flex items-center gap-1 text-[10px] text-ink-500 transition-colors hover:text-ink-200"
+          className="z-20 flex items-center gap-1 text-[10px] text-ink-500 transition-colors hover:text-ink-200"
           aria-label={`View ${site.name} source on GitHub`}
         >
           <Code className="h-3 w-3" />

@@ -33,7 +33,7 @@ export default function Hero({
         <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-honey-400">
           paimonchan.io
         </p>
-        <h1 className="mx-auto mt-3 max-w-2xl font-display text-[32px] font-700 leading-[1.05] tracking-tight text-ink-50 balance md:text-[44px]">
+        <h1 className="mx-auto mt-3 max-w-2xl font-display text-[32px] font-700 leading-[1.05] tracking-tight text-ink-50 text-balance md:text-[44px]">
           Every project, one doorway.
         </h1>
         <p className="mx-auto mt-3.5 max-w-md text-pretty text-[13.5px] leading-relaxed text-ink-400 md:text-[14.5px]">
