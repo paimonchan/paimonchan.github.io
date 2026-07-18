@@ -3,12 +3,10 @@
 /*
  * Paimon gateway theme.
  *
- * Same ink/honey palette as paimon-tools so the product family reads as one
- * line, but layered with modern primitives — ambient gradient mesh, glass blur,
- * soft glows, gradient text — to make a directory feel alive instead of empty.
- *
- * Structural work still leans on 1px hairlines; shadows are reserved for the
- * brand accent (the honey glow) and hover lift.
+ * Same warm ink/honey palette as paimon-tools, deliberately understated.
+ * Structure comes from 1px hairline borders and a flat solid background -
+ * no glassmorphism, gradient mesh, glow blobs or animated shimmer. The honey
+ * accent is reserved for the brand mark and the live status dot, nothing else.
  */
 
 @variant dark (&:where(.dark, .dark *));
@@ -43,36 +41,22 @@
   --font-display: 'Space Grotesk', 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  --shadow-pop: 0 8px 30px -8px rgba(0, 0, 0, 0.5);
+  --shadow-pop: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-kbd:
     0 1px 0 rgba(0, 0, 0, 0.4),
     inset 0 -1px 0 rgba(255, 255, 255, 0.05);
-  /* The signature honey glow — only on the brand accent and active states. */
-  --shadow-glow-honey: 0 0 0 1px color-mix(in srgb, var(--color-honey-500) 25%, transparent),
-    0 8px 30px -8px color-mix(in srgb, var(--color-honey-400) 45%, transparent);
-  --shadow-lift: 0 16px 40px -16px rgba(0, 0, 0, 0.6);
 
-  --animate-fade-in: fade-in 0.18s ease-out;
-  --animate-scale-in: scale-in 0.14s cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-slide-up: slide-up 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.15s ease-out;
+  --animate-slide-up: slide-up 0.2s ease-out;
 }
 
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes scale-in {
-  from { opacity: 0; transform: scale(0.97); }
-  to   { opacity: 1; transform: scale(1); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50%      { opacity: 0.9;  transform: scale(1.08); }
 }
 
 /* ── Base ──────────────────────────────────────────── */
@@ -102,7 +86,6 @@ h1, h2, h3, h4 {
   color: var(--color-honey-50);
 }
 
-/* Scrollbars — thin, themed, only visible when needed */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--color-ink-600) transparent;
@@ -142,54 +125,22 @@ h1, h2, h3, h4 {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.hairline { border-color: color-mix(in srgb, var(--color-ink-700) 60%, transparent); }
+.hairline { border-color: var(--color-ink-800); }
 
-/* The signature accent gradient — used on brand mark and gradient text. */
+/* The accent gradient, used only on the brand mark tile. */
 .accent-gradient {
   background-image: linear-gradient(135deg, #eec35a 0%, #e7ac34 50%, #d9911e 100%);
 }
 
-/* Gradient text: warm honey → amber. Use sparingly, only on display headings. */
-.text-gradient-honey {
-  background-image: linear-gradient(135deg, #f4d98a 0%, #e7ac34 45%, #d9911e 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/*
- * Ambient gradient mesh behind the page. Two honey/amber blobs + a cool tint,
- * blurred and faded so the foreground reads crisp. Sits behind everything via
- * .bg-ambient + a fixed-position wrapper.
- */
-.bg-ambient {
-  background-color: var(--color-ink-950);
-  background-image:
-    radial-gradient(ellipse 50% 40% at 18% 8%, color-mix(in srgb, var(--color-honey-500) 22%, transparent), transparent 70%),
-    radial-gradient(ellipse 45% 35% at 85% 12%, color-mix(in srgb, var(--color-honey-600) 18%, transparent), transparent 65%),
-    radial-gradient(ellipse 60% 50% at 50% 110%, color-mix(in srgb, var(--color-honey-700) 14%, transparent), transparent 70%);
-}
-
-/* Glassmorphic surface: translucent panel with subtle blur + hairline edge. */
-.glass {
-  background-color: color-mix(in srgb, var(--color-ink-900) 55%, transparent);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-}
-
-/* Subtle dotted grid for empty / canvas regions. */
+/* Subtle dotted grid for empty regions (unused for now, kept for parity). */
 .bg-dotgrid {
-  background-image: radial-gradient(circle, var(--color-ink-600) 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--color-ink-700) 1px, transparent 1px);
   background-size: 16px 16px;
 }
-
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { scrollbar-width: none; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
 }

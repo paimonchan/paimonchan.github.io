@@ -52,12 +52,12 @@ export const SITES = [
     category: 'Tools',
     tagline: 'Private, in-browser data conversion',
     description:
-      'Convert JSON, CSV and Excel against each other — plus a JS/Python/HTML playground. Everything runs locally; no uploads, no sign-up.',
+      'Convert JSON, CSV and Excel against each other, plus a JS/Python/HTML playground. Everything runs locally; no uploads, no sign-up.',
     url: 'https://paimonchan.github.io/paimon-tools/',
     repo: 'https://github.com/paimonchan/paimon-tools',
     status: 'live',
     keywords: ['json', 'csv', 'excel', 'xlsx', 'convert', 'converter', 'data', 'playground', 'code'],
-    features: ['JSON · CSV · XLSX', 'Code playground', '100% client-side'],
+    features: ['JSON/CSV/XLSX', 'Code playground', '100% client-side'],
   },
   {
     id: 'paimon-board',
@@ -65,7 +65,7 @@ export const SITES = [
     category: 'Apps',
     tagline: 'Real-time collaborative whiteboard',
     description:
-      'A boardmix-style whiteboard with peer-to-peer realtime sync. Draw, sketch and brainstorm together — sessions are shared over WebRTC, no server.',
+      'A boardmix-style whiteboard with peer-to-peer realtime sync. Draw, sketch and brainstorm together. Sessions are shared over WebRTC, no server.',
     url: 'https://paimonchan.github.io/paimon-board/',
     repo: 'https://github.com/paimonchan/paimon-board',
     status: 'live',
@@ -78,7 +78,7 @@ export const SITES = [
     category: 'Coming soon',
     tagline: 'Regional service monitoring dashboard',
     description:
-      'Real-time monitoring of services across global regions. A full-stack app (Next.js + Go) — landing here as a placeholder until it ships.',
+      'Real-time monitoring of services across global regions. A full-stack app (Next.js + Go), landing here as a placeholder until it ships.',
     url: 'https://github.com/paimonchan/paimonitor',
     repo: 'https://github.com/paimonchan/paimonitor',
     status: 'soon',
@@ -90,10 +90,10 @@ export const SITES = [
 /* ── Home page meta ────────────────────────────────── */
 
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.svg`
-const DEFAULT_OG_ALT = 'Paimon — a hub of io projects by paimonchan'
+const DEFAULT_OG_ALT = 'Paimon - a hub of io projects by paimonchan'
 
 export const HOME_SEO = {
-  title: 'Paimon — a hub of io projects',
+  title: 'Paimon - a hub of io projects',
   description:
     'A directory of paimonchan\'s io projects: private in-browser data tools, real-time collaborative whiteboards, and more. One landing page, every site.',
   keywords:
@@ -108,10 +108,10 @@ export const HOME_SEO = {
 function buildHomeBodyHtml() {
   const items = SITES.map(
     (s) =>
-      `      <li><a href="${s.url}"><strong>${s.name}</strong> — ${s.tagline}. ${s.description}</a></li>`
+      `      <li><a href="${s.url}"><strong>${s.name}</strong> - ${s.tagline}. ${s.description}</a></li>`
   ).join('\n')
-  return `<h1>Paimon — a hub of io projects</h1>
-  <p>A directory of paimonchan's io projects. Every site runs in your browser — privacy-first, no tracking, no sign-up.</p>
+  return `<h1>Paimon - a hub of io projects</h1>
+  <p>A directory of paimonchan's io projects. Every site runs in your browser. Privacy-first, no tracking, no sign-up.</p>
   <h2>Projects</h2>
   <ul>
 ${items}
@@ -183,10 +183,10 @@ export function noscriptBodyFor() {
   const items = live
     .map(
       (s) =>
-        `      <li><a href="${s.url}">${s.name}</a> — ${s.tagline}</li>`
+        `      <li><a href="${s.url}">${s.name}</a> - ${s.tagline}</li>`
     )
     .join('\n')
-  return `<h1>Paimon — a hub of io projects</h1>
+  return `<h1>Paimon - a hub of io projects</h1>
     <p>${HOME_SEO.description}</p>
     <p>This page normally shows an interactive directory of sites. Without
       JavaScript you can still reach them directly:</p>

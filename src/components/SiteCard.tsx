@@ -1,70 +1,51 @@
 /**
- * SiteCard — one io project rendered as a directory card.
+ * SiteCard - one io project rendered as a directory card.
  *
- * Modern bento-style: gradient icon tile with a soft honey glow, glass surface,
- * hover lift + border glow. Density dialed up with a category label and
- * feature badges so each card carries real information, not air.
+ * Flat by design: solid surface, hairline border, a quiet hover that just
+ * shifts the border and arrow. No glow, lift, or scale - those piled-up
+ * effects are exactly what makes a page read as auto-generated. The card's
+ * only accent is the gradient icon tile.
  *
  * Navigation policy:
- *   - Main click → SAME TAB. Live sites are same-domain siblings, so opening
- *     them feels like internal navigation, and same-tab is the accessible
- *     default. Power users can still cmd/ctrl-click for a new tab.
- *   - Source link → NEW TAB. The source repo is external (github.com/…) and
- *     a reference, not the destination — keep the gateway open behind it.
+ *   - Main click -> SAME TAB for live sites (same-domain sibling, feels like
+ *     internal navigation; cmd/ctrl-click still opens new tab).
+ *   - Source link -> NEW TAB (external github.com reference).
  *
- * "soon" projects render muted and link to their repo (no live site).
+ * "soon" cards render muted and link to their repo (no live site yet).
  */
-import { ArrowUpRight, Code } from 'lucide-react'
+import { ArrowRight, ExternalLink, Code } from 'lucide-react'
 import type { SiteWithIcon } from '../sites.config'
 
 export default function SiteCard({ site, index }: { site: SiteWithIcon; index: number }) {
   const { Icon } = site
   const isLive = site.status === 'live'
   const href = isLive ? site.url : site.repo
-  // Live = same-tab navigation (internal-feeling); soon = repo (new tab,
-  // external reference). Matches the policy in the file header.
-  const openInNewTab = !isLive
 
   return (
     <a
       href={href}
-      {...(openInNewTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-      style={{ animationDelay: `${Math.min(index * 50, 300)}ms` }}
+      {...(!isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      style={{ animationDelay: `${Math.min(index * 40, 240)}ms` }}
       className={[
-        'group relative flex animate-[slide-up_0.25s_cubic-bezier(0.16,1,0.3,1)_both]',
-        'flex-col rounded-2xl border p-4 transition-all duration-200',
-        'glass',
+        'group relative flex animate-[slide-up_0.2s_ease-out_both] flex-col rounded-lg border p-4',
+        'transition-colors duration-150',
         isLive
-          ? 'border-ink-700/60 hover:-translate-y-1 hover:border-honey-500/40 hover:shadow-lift'
-          : 'border-ink-800/60 hover:border-ink-700',
+          ? 'border-ink-800 bg-ink-900 hover:border-ink-700 hover:bg-ink-900/80'
+          : 'border-ink-900 bg-ink-950 hover:border-ink-800',
       ].join(' ')}
     >
-      {/* Honey glow that fades in on hover — only for live projects. */}
-      {isLive && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          style={{
-            background:
-              'radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in srgb, var(--color-honey-400) 14%, transparent), transparent 70%)',
-          }}
-        />
-      )}
-
-      {/* Header row: icon tile + category label + status pill */}
-      <div className="relative flex items-start justify-between gap-2">
+      {/* Header: icon tile + status pill */}
+      <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2.5">
           <div
             className={[
-              'flex h-10 w-10 items-center justify-center rounded-xl shadow-inner transition-transform duration-200',
-              isLive
-                ? 'accent-gradient group-hover:scale-110'
-                : 'bg-ink-800 ring-1 ring-ink-700/60',
+              'flex h-9 w-9 items-center justify-center rounded-md',
+              isLive ? 'accent-gradient' : 'bg-ink-800 ring-1 ring-ink-700/50',
             ].join(' ')}
           >
-            <Icon className={['h-[18px] w-[18px]', isLive ? 'text-ink-950' : 'text-ink-500'].join(' ')} />
+            <Icon className={['h-[17px] w-[17px]', isLive ? 'text-ink-950' : 'text-ink-500'].join(' ')} />
           </div>
-          <span className="font-mono text-[9px] uppercase tracking-wider text-ink-500">
+          <span className="font-mono text-[9px] uppercase tracking-wider text-ink-600">
             {site.category}
           </span>
         </div>
@@ -72,35 +53,25 @@ export default function SiteCard({ site, index }: { site: SiteWithIcon; index: n
       </div>
 
       {/* Name + tagline */}
-      <h3 className="relative mt-3 font-display text-[15px] font-600 leading-tight text-ink-50">
+      <h3 className="mt-3 font-display text-[15px] font-600 leading-tight text-ink-50">
         {site.name}
       </h3>
-      <p
-        className={[
-          'relative mt-0.5 text-[11px] font-500',
-          isLive ? 'text-honey-300/85' : 'text-ink-500',
-        ].join(' ')}
-      >
+      <p className={['mt-0.5 text-[11px] font-500', isLive ? 'text-honey-400' : 'text-ink-500'].join(' ')}>
         {site.tagline}
       </p>
 
-      {/* Description — clamped so cards stay aligned. */}
-      <p className="relative mt-2 line-clamp-2 text-[12px] leading-relaxed text-ink-400">
+      {/* Description */}
+      <p className="mt-2 line-clamp-2 text-[12px] leading-relaxed text-ink-400">
         {site.description}
       </p>
 
-      {/* Feature badges */}
+      {/* Feature chips */}
       {site.features.length > 0 && (
-        <div className="relative mt-3 flex flex-wrap gap-1">
+        <div className="mt-3 flex flex-wrap gap-1">
           {site.features.map((f) => (
             <span
               key={f}
-              className={[
-                'rounded-md border px-1.5 py-0.5 font-mono text-[9.5px] tracking-tight',
-                isLive
-                  ? 'border-ink-700/60 bg-ink-800/50 text-ink-300'
-                  : 'border-ink-800 bg-ink-900/60 text-ink-500',
-              ].join(' ')}
+              className="rounded border border-ink-800 bg-ink-900 px-1.5 py-0.5 font-mono text-[9.5px] text-ink-400"
             >
               {f}
             </span>
@@ -108,9 +79,9 @@ export default function SiteCard({ site, index }: { site: SiteWithIcon; index: n
         </div>
       )}
 
-      {/* Footer row: source link + open affordance. mt-auto pins it to the
-          bottom so cards of different heights keep their footers aligned. */}
-      <div className="relative mt-auto flex items-center justify-between border-t border-ink-800/70 pt-2.5">
+      {/* Footer: source link + open affordance. mt-auto pins it to bottom. */}
+      <div className="mt-auto flex items-center justify-between border-t border-ink-800/80 pt-2.5"
+           style={{ marginTop: '0.75rem' }}>
         <a
           href={site.repo}
           target="_blank"
@@ -124,14 +95,18 @@ export default function SiteCard({ site, index }: { site: SiteWithIcon; index: n
         </a>
         <span
           className={[
-            'flex items-center gap-0.5 text-[11px] font-500 transition-all',
+            'flex items-center gap-1 text-[11px] font-500 transition-colors',
             isLive
-              ? 'text-ink-300 group-hover:translate-x-0.5 group-hover:text-honey-200'
-              : 'text-ink-500',
+              ? 'text-ink-300 group-hover:text-honey-300'
+              : 'text-ink-500 group-hover:text-ink-300',
           ].join(' ')}
         >
           {isLive ? 'Open' : 'Repo'}
-          <ArrowUpRight className="h-3 w-3" />
+          {isLive ? (
+            <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+          ) : (
+            <ExternalLink className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+          )}
         </span>
       </div>
     </a>
@@ -142,10 +117,7 @@ function StatusPill({ status }: { status: 'live' | 'soon' }) {
   if (status === 'live') {
     return (
       <span className="flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-600 uppercase tracking-wider text-emerald-300">
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-        </span>
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
         live
       </span>
     )

@@ -56,7 +56,7 @@ function Gateway() {
   }, [query, showSearch])
 
   return (
-    <div className="bg-ambient flex min-h-screen flex-col text-ink-100">
+    <div className="flex min-h-screen flex-col bg-ink-950 text-ink-100">
       <Header />
       <main className="flex flex-1 flex-col">
         <Hero
