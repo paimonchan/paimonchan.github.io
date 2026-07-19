@@ -100,9 +100,9 @@ const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.svg`
 const DEFAULT_OG_ALT = 'paimonchan.io - a hub of io projects by paimonchan'
 
 export const HOME_SEO = {
-  title: 'paimonchan.io - a hub of io projects',
+  title: 'paimonchan.io — Free, Open Source, Privacy-First Web Tools & Real-Time Apps',
   description:
-    'A directory of paimonchan\'s io projects: private in-browser data tools, real-time collaborative whiteboards, and more. One landing page, every site.',
+    'A curated directory of free, open source, privacy-first web tools and real-time apps by paimonchan. In-browser data converters (JSON, CSV, Excel), collaborative whiteboards, and more. No sign-up, no tracking, 100% client-side.',
   keywords:
     'paimonchan, paimonchan.io, paimon tools, paimon board, io projects, github pages, web tools, browser tools, json csv excel, whiteboard',
   ogImage: DEFAULT_OG_IMAGE,
