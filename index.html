@@ -50,6 +50,25 @@
     <!-- Performance: preconnect to font origin -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!--
+      Inline theme script: read saved preference before React mounts.
+      Must run before paint to prevent dark/light flash. Falls back to
+      'dark' (the default) when nothing is saved or JSON is corrupt.
+    -->
+    <script>
+      (function() {
+        try {
+          var raw = localStorage.getItem('paimon.gateway.theme');
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            if (parsed && parsed.state && parsed.state.theme === 'light') {
+              document.documentElement.classList.remove('dark');
+            }
+          }
+        } catch(e) {}
+      })();
+    </script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"

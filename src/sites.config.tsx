@@ -80,7 +80,7 @@ function iconFor(id: string): ComponentType<LucideProps> {
  * The full, typed, icon-attached list. This is what components should consume.
  * Memoized at module load — SITES is static, so this runs once.
  */
-export const SITES_WITH_ICONS: SiteWithIcon[] = (SITES as SiteEntry[]).map((s) => ({
+export const SITES_WITH_ICONS: SiteWithIcon[] = SITES.map((s) => ({
   ...s,
   Icon: iconFor(s.id),
 }))

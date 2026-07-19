@@ -24,6 +24,7 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join, resolve } from 'node:path'
+import sharp from 'sharp'
 
 // Plain-JS source of truth — Node can import it directly (no bundler).
 const seoModule = await import('../src/lib/seo.js')
@@ -57,6 +58,14 @@ async function main() {
 
   await writeSitemap()
   console.log('[prerender] ✓ sitemap.xml')
+
+  await generateOgPng()
+  console.log('[prerender] ✓ og-image.png (1200×630 + 512×512)')
+
+  // .nojekyll: tells GitHub Pages not to run Jekyll on our static output.
+  // Required when deploying via GH Actions to the user-site root.
+  await writeFile(join(DIST, '.nojekyll'), '')
+  console.log('[prerender] ✓ .nojekyll')
 }
 
 /**
@@ -77,6 +86,19 @@ function fillSeo(tpl, values) {
     .replace(/%%BREADCRUMBLD%%/g, values.breadcrumbLd)
     .replace(/%%NOSCRIPT%%/g, values.noscript)
     .replace(/%%PRERENDER_BODY%%/g, values.bodyHtml || '')
+}
+
+/** Convert og-image.svg → PNG in two sizes (1200×630 OG + 512×512 manifest). */
+async function generateOgPng() {
+  const svgPath = join(ROOT, 'public', 'og-image.svg')
+  const png1200 = join(DIST, 'og-image.png')
+  const png512 = join(DIST, 'og-image-512.png')
+
+  const buffer = await sharp(svgPath).resize(1200, 630).png().toBuffer()
+  await writeFile(png1200, buffer)
+
+  const buffer512 = await sharp(svgPath).resize(512, 512).png().toBuffer()
+  await writeFile(png512, buffer512)
 }
 
 function escapeHtml(s) {

@@ -10,7 +10,7 @@
  * only appears once the project count crosses SEARCH_THRESHOLD; below that the
  * raw list is faster to scan than to query.
  */
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { ThemeEffect } from './stores/theme-store'
 import { useFilter } from './hooks/useFilter'
@@ -23,14 +23,8 @@ import Footer from './components/Footer'
 function Gateway() {
   const [query, setQuery] = useState('')
 
-  const liveCount = useMemo(
-    () => SITES_WITH_ICONS.filter((s) => s.status === 'live').length,
-    []
-  )
-  const soonCount = useMemo(
-    () => SITES_WITH_ICONS.filter((s) => s.status === 'soon').length,
-    []
-  )
+  const liveCount = SITES_WITH_ICONS.filter((s) => s.status === 'live').length
+  const soonCount = SITES_WITH_ICONS.filter((s) => s.status === 'soon').length
 
   // Only render the search box when filtering would actually pay off.
   const showSearch = SITES_WITH_ICONS.length >= SEARCH_THRESHOLD

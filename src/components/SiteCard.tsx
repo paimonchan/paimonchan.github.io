@@ -34,45 +34,44 @@ export default function SiteCard({ site, index }: SiteCardProps) {
   // Zero-padded editorial index (01, 02, ...) - subtle, very human touch.
   const number = String(index + 1).padStart(2, '0')
 
+  function navigate() {
+    if (isLive) {
+      window.location.href = href
+    } else {
+      window.open(href, '_blank', 'noopener noreferrer')
+    }
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      navigate()
+    }
+  }
+
   return (
     <article
       aria-label={site.name}
       style={{ animationDelay: `${Math.min(index * 40, 240)}ms` }}
+      onClick={navigate}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="link"
       className={[
         'group relative flex animate-[slide-up_0.2s_ease-out_both] flex-col overflow-hidden rounded-lg border p-4',
-        'shadow-[var(--shadow-card)] transition-all duration-150',
+        'shadow-[var(--shadow-card)] transition-all duration-150 cursor-pointer',
         isLive
           ? 'border-ink-700 bg-ink-900 hover:border-honey-500/60 hover:shadow-[var(--shadow-card-hover)]'
           : 'border-ink-800 bg-ink-900/60 hover:border-ink-600',
       ].join(' ')}
     >
-      {/* Left accent bar - lights up on hover. Hommage to paimon-tools. */}
+      {/* Accent bar - lights up on hover. Hommage to paimon-tools. */}
       <span
         aria-hidden
         className={[
           'absolute inset-y-0 left-0 w-[2px] bg-honey-400 transition-opacity duration-150',
           isLive ? 'opacity-0 group-hover:opacity-100' : 'opacity-0',
         ].join(' ')}
-      />
-
-      {/*
-        The whole card is a link for accessibility/SEO. Stretched overlay sits
-        ABOVE the visual content (z-10) so clicks anywhere on the card - name,
-        tagline, description, chips, padding - all navigate. Content elements
-        are position:relative without z, so they paint below this overlay and
-        the cursor always hits the link. The source link below uses z-20 to
-        stay above the overlay so it stays clickable on its own.
-
-        No tabIndex={-1}: the overlay IS the keyboard target. Removing it from
-        the tab order would make the entire card unreachable via keyboard -
-        every project would be invisible to Tab users. The focus-visible ring
-        below signals focus to keyboard users only; mouse clicks don't show it.
-      */}
-      <a
-        href={href}
-        {...(!isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        className="absolute inset-0 z-10 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-honey-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
-        aria-label={`${isLive ? 'Open' : 'View repo for'} ${site.name} - ${site.tagline}`}
       />
 
       {/* Header: icon tile (larger, drop shadow) + number + slug badge */}
@@ -128,7 +127,6 @@ export default function SiteCard({ site, index }: SiteCardProps) {
           href={site.repo}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
           className="z-20 -m-1 flex items-center gap-1 rounded p-1 text-[10px] text-ink-500 outline-none transition-colors hover:text-ink-200 focus-visible:ring-2 focus-visible:ring-honey-400"
           aria-label={`View ${site.name} source on GitHub`}
         >

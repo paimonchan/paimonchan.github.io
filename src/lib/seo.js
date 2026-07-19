@@ -48,7 +48,7 @@ export const CATEGORIES = ['Tools', 'Apps', 'Coming soon']
  *                                  suffix to signal "not there yet".
  */
 
-/** @type {SiteEntry[]} */
+/** @type {import('../sites.config').SiteEntry[]} */
 export const SITES = [
   {
     id: 'paimon-tools',
@@ -142,9 +142,8 @@ ${items}
 export function jsonLdFor() {
   const author = { '@type': 'Person', name: 'paimonchan', url: 'https://github.com/paimonchan' }
 
-  const applications = SITES.map((s, i) => ({
+  const applications = SITES.map((s) => ({
     '@type': 'SoftwareApplication',
-    position: i + 1,
     name: s.name,
     description: s.description,
     url: s.url,
