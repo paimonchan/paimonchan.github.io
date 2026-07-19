@@ -32,9 +32,7 @@ import { SITES } from './lib/seo'
  */
 export const SEARCH_THRESHOLD = 5
 
-// Re-shape the plain-JS entry into a typed view-model. `as const` on the
-// imported array would lose the literal types after the .js boundary, so we
-// assert the shape explicitly here — one place to pay the typing cost.
+// Re-shape the plain-JS entry into a typed view-model with icons.
 export interface SiteEntry {
   id: string
   name: string

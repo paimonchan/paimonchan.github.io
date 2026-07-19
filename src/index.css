@@ -11,7 +11,7 @@
 
 @variant dark (&:where(.dark, .dark *));
 
-/* ── Theme ─────────────────────────────────────────── */
+/* --- Theme --- */
 
 @theme {
   --color-ink-50: #f7f5f1;
@@ -79,7 +79,7 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Base ──────────────────────────────────────────── */
+/* --- Base --- */
 
 :root { color-scheme: dark; }
 
@@ -126,7 +126,7 @@ h1, h2, h3, h4 {
   border-radius: 2px;
 }
 
-/* ── Component utilities ───────────────────────────── */
+/* --- Component utilities --- */
 
 .kbd {
   display: inline-flex;

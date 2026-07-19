@@ -127,7 +127,7 @@ export default function SiteCard({ site, index }: SiteCardProps) {
           href={site.repo}
           target="_blank"
           rel="noopener noreferrer"
-          className="z-20 -m-1 flex items-center gap-1 rounded p-1 text-[10px] text-ink-500 outline-none transition-colors hover:text-ink-200 focus-visible:ring-2 focus-visible:ring-honey-400"
+          className="-m-1 flex items-center gap-1 rounded p-1 text-[10px] text-ink-500 outline-none transition-colors hover:text-ink-200 focus-visible:ring-2 focus-visible:ring-honey-400"
           aria-label={`View ${site.name} source on GitHub`}
         >
           <Code className="h-3 w-3" />

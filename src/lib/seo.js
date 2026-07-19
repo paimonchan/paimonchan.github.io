@@ -94,7 +94,7 @@ export const SITES = [
   },
 ]
 
-/* ── Home page meta ────────────────────────────────── */
+/* --- Home page meta --- */
 
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.svg`
 const DEFAULT_OG_ALT = 'paimonchan.io - a hub of io projects by paimonchan'
@@ -125,7 +125,7 @@ ${items}
   </ul>`
 }
 
-/* ── JSON-LD structured data ───────────────────────── */
+/* --- JSON-LD structured data --- */
 
 /**
  * Builds the structured data for the home page.
