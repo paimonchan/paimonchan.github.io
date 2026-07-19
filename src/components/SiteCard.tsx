@@ -62,13 +62,17 @@ export default function SiteCard({ site, index }: SiteCardProps) {
         are position:relative without z, so they paint below this overlay and
         the cursor always hits the link. The source link below uses z-20 to
         stay above the overlay so it stays clickable on its own.
+
+        No tabIndex={-1}: the overlay IS the keyboard target. Removing it from
+        the tab order would make the entire card unreachable via keyboard -
+        every project would be invisible to Tab users. The focus-visible ring
+        below signals focus to keyboard users only; mouse clicks don't show it.
       */}
       <a
         href={href}
         {...(!isLive ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        className="absolute inset-0 z-10"
+        className="absolute inset-0 z-10 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-honey-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
         aria-label={`${isLive ? 'Open' : 'View repo for'} ${site.name} - ${site.tagline}`}
-        tabIndex={-1}
       />
 
       {/* Header: icon tile (larger, drop shadow) + number + slug badge */}
@@ -88,8 +92,10 @@ export default function SiteCard({ site, index }: SiteCardProps) {
         <SlugBadge slug={site.slug} isLive={isLive} />
       </div>
 
-      {/* Name + tagline - three contrast tiers start here */}
-      <h3 className="relative mt-3.5 font-display text-[16px] font-700 leading-tight text-ink-50">
+      {/* Name + tagline - three contrast tiers: ink-50 name (700) -> honey/ink
+          tagline (500) -> ink-400 body (400). Now that font-weight tokens
+          actually resolve, the hierarchy reads instead of looking flat. */}
+      <h3 className="relative mt-3.5 font-display text-[17px] font-700 leading-tight tracking-tight text-ink-50">
         {site.name}
       </h3>
       <p className={['relative mt-1 text-[12px] font-500', isLive ? 'text-honey-400' : 'text-ink-500'].join(' ')}>
@@ -123,7 +129,7 @@ export default function SiteCard({ site, index }: SiteCardProps) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="z-20 flex items-center gap-1 text-[10px] text-ink-500 transition-colors hover:text-ink-200"
+          className="z-20 -m-1 flex items-center gap-1 rounded p-1 text-[10px] text-ink-500 outline-none transition-colors hover:text-ink-200 focus-visible:ring-2 focus-visible:ring-honey-400"
           aria-label={`View ${site.name} source on GitHub`}
         >
           <Code className="h-3 w-3" />
