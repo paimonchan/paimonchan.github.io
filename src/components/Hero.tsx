@@ -28,7 +28,7 @@ export default function Hero({
   showSearch,
 }: HeroProps) {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 pt-8 pb-5 sm:px-5 md:pt-12 md:pb-7">
+    <section className="mx-auto w-full max-w-6xl px-4 pt-8 pb-5 animate-[fade-in_0.4s_ease-out_0.1s_both] sm:px-5 md:pt-12 md:pb-7">
       <div className="text-center">
         <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-honey-400">
           paimonchan.io
@@ -50,20 +50,19 @@ export default function Hero({
           .
         </p>
 
-        {/* Stats line - honey dot matches the brand accent (the only place
-            honey appears outside the brand mark and hover bar). */}
-        <div className="mt-3 flex items-center justify-center gap-2 text-[11px] text-ink-500">
-          <span className="flex items-center gap-1.5">
+        {/* Stats line — mini badges */}
+        <div className="mt-4 flex items-center justify-center gap-2">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-700 bg-ink-800/60 px-2.5 py-0.5 text-[11px]">
             <span className="h-1.5 w-1.5 rounded-full bg-honey-400" />
-            <span className="font-mono text-ink-300">{liveCount}</span> live
+            <span className="font-mono text-ink-200">{liveCount}</span>
+            <span className="text-ink-400">live</span>
           </span>
           {soonCount > 0 && (
-            <>
-              <span className="text-ink-700">/</span>
-              <span>
-                <span className="font-mono text-ink-300">{soonCount}</span> coming
-              </span>
-            </>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-800 bg-ink-900/60 px-2.5 py-0.5 text-[11px]">
+              <span className="h-1.5 w-1.5 rounded-full bg-ink-500" />
+              <span className="font-mono text-ink-400">{soonCount}</span>
+              <span className="text-ink-500">coming</span>
+            </span>
           )}
         </div>
       </div>

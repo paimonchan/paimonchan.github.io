@@ -61,7 +61,7 @@ function Gateway() {
           soonCount={soonCount}
           showSearch={showSearch}
         />
-        <SiteGrid sites={filtered} />
+        <SiteGrid sites={filtered} onClearFilter={() => setQuery('')} />
       </main>
       <Footer />
     </div>

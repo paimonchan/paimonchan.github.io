@@ -7,7 +7,7 @@ import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-30 border-b border-ink-800 bg-ink-950/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-30 animate-[fade-in_0.3s_ease-out] border-b border-ink-800 bg-ink-950/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5 sm:px-5">
         <a href="/" className="flex items-center gap-2.5" aria-label="paimonchan.io home">
           <BrandMark size={26} />

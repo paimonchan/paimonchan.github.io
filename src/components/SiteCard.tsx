@@ -25,14 +25,15 @@ import type { SiteWithIcon } from '../sites.config'
 interface SiteCardProps {
   site: SiteWithIcon
   index: number
+  total: number
 }
 
-export default function SiteCard({ site, index }: SiteCardProps) {
+export default function SiteCard({ site, index, total }: SiteCardProps) {
   const { Icon } = site
   const isLive = site.status === 'live'
   const href = isLive ? site.url : site.repo
-  // Zero-padded editorial index (01, 02, ...) - subtle, very human touch.
-  const number = String(index + 1).padStart(2, '0')
+  // Zero-padded editorial index (01, 02, ...) — position out of total.
+  const number = `${index + 1}/${total}`
 
   function navigate() {
     if (isLive) {
@@ -70,7 +71,7 @@ export default function SiteCard({ site, index }: SiteCardProps) {
         aria-hidden
         className={[
           'absolute inset-y-0 left-0 w-[2px] bg-honey-400 transition-opacity duration-150',
-          isLive ? 'opacity-0 group-hover:opacity-100' : 'opacity-0',
+          isLive ? 'opacity-60 group-hover:opacity-100' : 'opacity-0 group-hover:opacity-60',
         ].join(' ')}
       />
 
