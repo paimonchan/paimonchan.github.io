@@ -154,25 +154,31 @@ export default function SiteCard({ site, index }: SiteCardProps) {
 }
 
 /**
- * SlugBadge - the URL path segment, in mono.
+ * SlugBadge — the URL path segment, in mono.
  *
- * Replaces the old "live/soon" pill (an auto-generated aesthetic tell). Real
- * info instead of decoration: '/paimon-tools' tells the visitor where this
- * lives and reinforces the page's "doorway" concept. Not-yet-shipped projects
- * get a '*' suffix (the universal editorial footnote mark).
+ * Replaces the old "live/soon" pill. The honey dot pulses for live
+ * sites; "soon" projects show a static ink dot. Cleaner than the old
+ * '*' suffix — the dot signals status at a glance.
  */
 function SlugBadge({ slug, isLive }: { slug: string; isLive: boolean }) {
   return (
     <span
       className={[
-        'shrink-0 rounded border px-1.5 py-0.5 font-mono text-[9.5px]',
+        'shrink-0 inline-flex items-center gap-1.5 rounded border px-1.5 py-0.5 font-mono text-[9.5px]',
         isLive
           ? 'border-ink-700 bg-ink-800 text-ink-300'
           : 'border-ink-800 bg-ink-900 text-ink-500',
       ].join(' ')}
     >
+      <span
+        className={[
+          'h-1.5 w-1.5 rounded-full',
+          isLive
+            ? 'bg-honey-400 animate-[pulse-dot_2s_ease-in-out_infinite]'
+            : 'bg-ink-500',
+        ].join(' ')}
+      />
       /{slug}
-      {!isLive && <span className="text-ink-600">*</span>}
     </span>
   )
 }
