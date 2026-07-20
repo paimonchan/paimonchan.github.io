@@ -1,0 +1,17 @@
+# paimonchan.io
+> Gateway hub for paimonchan's projects and tools.
+
+paimonchan.io is the landing page directory that links to all of paimonchan's web projects. It serves as the central entry point for discovering available tools and applications.
+
+## Projects
+
+- [Paimon Tools](https://paimonchan.github.io/paimon-tools/): Free, private, in-browser data conversion tools — JSON, CSV, Excel. 100% client-side, no uploads, no sign-up.
+- [Paimon Board](https://paimonchan.github.io/paimon-board/): Project board (coming soon).
+
+## About
+
+paimonchan.io is the home page for paimonchan's open-source projects. Each project is its own repository and deploys independently to its own subpath under paimonchan.github.io.
+
+- **Tech stack**: React 19, TypeScript 7, Vite 8, Tailwind CSS v4
+- **Design**: Warm ink/honey palette, dark-first with light mode support
+- **GitHub**: https://github.com/paimonchan/paimonchan.github.io
