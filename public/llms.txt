@@ -1,27 +1,78 @@
-# paimonchan.io
-> Gateway hub for paimonchan's projects and tools.
-
-paimonchan.io is the landing page directory that links to all of paimonchan's web projects. It serves as the central entry point for discovering available tools and applications.
-
-## Projects
-
-- [Paimon Tools](https://paimonchan.github.io/paimon-tools/): Free, private, in-browser data conversion tools — JSON, CSV, Excel. 100% client-side, no uploads, no sign-up.
-  - Full AI content: [paimonchan.github.io/paimon-tools/llms.txt](https://paimonchan.github.io/paimon-tools/llms.txt)
-  - Extended content: [paimonchan.github.io/paimon-tools/llms-full.txt](https://paimonchan.github.io/paimon-tools/llms-full.txt)
-- [Paimon Board](https://paimonchan.github.io/paimon-board/): Project board (coming soon).
+# paimonchan.io — Gateway & Projects
+> Gateway hub for paimonchan's open-source projects and in-browser tools.
 
 ## About
 
-paimonchan.io is the home page for paimonchan's open-source projects. Each project is its own repository and deploys independently to its own subpath under paimonchan.github.io.
+paimonchan.io is the landing page directory for paimonchan's web projects. The primary project is **Paimon Tools** — a collection of free, private, in-browser utilities for converting, formatting, and manipulating data. Everything runs locally — no uploads, no servers, no sign-up.
 
 - **Tech stack**: React 19, TypeScript 7, Vite 8, Tailwind CSS v4
 - **Design**: Warm ink/honey palette, dark-first with light mode support
-- **GitHub**: https://github.com/paimonchan/paimonchan.github.io
+- **License**: MIT
 
-## LLM Discovery
+---
 
-This hub links to sub-project llms.txt files at their respective site roots:
+## Paimon Tools
 
-| Project | llms.txt | llms-full.txt |
-|---------|----------|---------------|
-| Paimon Tools | [/paimon-tools/llms.txt](https://paimonchan.github.io/paimon-tools/llms.txt) | [/paimon-tools/llms-full.txt](https://paimonchan.github.io/paimon-tools/llms-full.txt) |
+> 100% client-side data conversion tools. Your data never leaves the browser.
+
+Paimon Tools is a free, open-source collection of in-browser utilities. All processing happens locally with zero network requests.
+
+### Convert
+
+- [JSON to CSV](https://paimonchan.github.io/paimon-tools/json-to-csv/): Convert JSON arrays to CSV tables. Keys become column headers, values become rows. Nested objects are stringified.
+- [CSV to JSON](https://paimonchan.github.io/paimon-tools/csv-to-json/): Convert CSV tables to JSON arrays. Supports standard CSV escaping and quoted fields.
+- [JSON to Excel](https://paimonchan.github.io/paimon-tools/json-to-excel/): Export JSON arrays as downloadable .xlsx spreadsheets. Data is written to a sheet named "Data".
+- [Excel to JSON](https://paimonchan.github.io/paimon-tools/excel-to-json/): Extract JSON data from .xlsx files. Reads the first sheet and converts rows to JSON objects.
+- [CSV to Excel](https://paimonchan.github.io/paimon-tools/csv-to-excel/): Turn CSV tables into .xlsx format. Auto-detects separators.
+- [Excel to CSV](https://paimonchan.github.io/paimon-tools/excel-to-csv/): Extract CSV data from .xlsx spreadsheets. Processes the first sheet.
+- [YAML to JSON](https://paimonchan.github.io/paimon-tools/yaml-to-json/): Convert YAML to JSON. Supports YAML 1.2 — strings, numbers, booleans, arrays, nested objects, and multiline strings.
+- [JSON to YAML](https://paimonchan.github.io/paimon-tools/json-to-yaml/): Convert JSON to clean, readable YAML output.
+- [Base64 Encode](https://paimonchan.github.io/paimon-tools/base64-encode/): Encode text to Base64. UTF-8 safe — handles Unicode, emoji, and special characters.
+- [Base64 Decode](https://paimonchan.github.io/paimon-tools/base64-decode/): Decode Base64 strings back to readable text.
+
+### Format & Manipulate
+
+- [JSON Formatter](https://paimonchan.github.io/paimon-tools/json-formatter/): Pretty-print and validate JSON. Choose 2-space, 4-space, or tab indentation. Auto-validates on every keystroke with inline error messages.
+- [JSON Minifier](https://paimonchan.github.io/paimon-tools/json-minifier/): Compress JSON by stripping unnecessary whitespace. Validates syntax as it goes.
+- [Text Delimiter Tool](https://paimonchan.github.io/paimon-tools/text-delimiter/): Join list items with custom delimiter, quotes, and wrapping. Perfect for SQL IN clauses, HTML lists, and array literals.
+
+### Developer Tools
+
+- [Diff Tool](https://paimonchan.github.io/paimon-tools/diff-tool/): Compare two texts side by side. Color-coded added (green), removed (red), and modified lines. No file size limits.
+- [UUID Generator](https://paimonchan.github.io/paimon-tools/uuid-generator/): Generate random UUID v4 identifiers. Uses Web Crypto API for cryptographically secure random values.
+- [SHA-256 Hash Generator](https://paimonchan.github.io/paimon-tools/hash-generator/): Generate SHA-256 hashes of text or files. Uses the Web Crypto API — the same implementation browsers use for HTTPS.
+- [Combine Files](https://paimonchan.github.io/paimon-tools/combine-files/): Merge multiple CSV, TSV, and Excel files into one. Auto-detects format and unions columns. Supports mixed formats.
+
+### Code Playground
+
+- [Code Playground](https://paimonchan.github.io/paimon-tools/code/): Multi-language online code editor supporting JavaScript, TypeScript, Python, HTML, and JSON.
+- [JavaScript](https://paimonchan.github.io/paimon-tools/code/javascript/): Sandboxed JS execution via Web Worker. Supports setTimeout, setInterval, fetch with async callback capture.
+- [TypeScript](https://paimonchan.github.io/paimon-tools/code/typescript/): TypeScript transpilation via esbuild-wasm with npm import support via esm.sh CDN.
+- [Python](https://paimonchan.github.io/paimon-tools/code/python/): Full CPython via Pyodide WASM (~12 MB, cached after first load). Standard library support.
+- [HTML](https://paimonchan.github.io/paimon-tools/code/html/): Live iframe preview with srcdoc. Sandboxed execution with no access to parent page.
+- [JSON](https://paimonchan.github.io/paimon-tools/code/json/): Format, validate, and edit JSON with CodeMirror 6 editor.
+
+## Tech Stack Details
+
+- **Frontend**: React 19, TypeScript 7, Vite 8
+- **Styling**: Tailwind CSS v4
+- **Icons**: lucide-react
+- **Converters**: SheetJS (xlsx), PapaParse (CSV), js-yaml (YAML), json5 (JSON5)
+- **Code Editor**: CodeMirror 6 (JSON, JavaScript, TypeScript, Python, CSS, HTML, Markdown, SQL, XML, YAML)
+- **Python Runtime**: Pyodide WASM
+- **Playground Bundler**: esbuild-wasm
+- **Diff Engine**: diff library with word-level tokenization
+
+## Key Principles
+
+1. **Privacy**: No data is ever sent to a server. Every conversion and execution happens locally in your browser.
+2. **Offline-capable**: After initial load, tools work without internet access.
+3. **Free & Open Source**: No paid tiers, no usage limits, no account required. MIT license.
+4. **No tracking built-in**: Analytics (Umami) is privacy-first with no cookies. Data never leaves the site.
+
+## Links
+
+- **Paimon Tools app**: https://paimonchan.github.io/paimon-tools/
+- **GitHub repository**: https://github.com/paimonchan/paimon-tools
+- **Paimon Board**: https://paimonchan.github.io/paimon-board/ (coming soon)
+- **Gateway source**: https://github.com/paimonchan/paimonchan.github.io
