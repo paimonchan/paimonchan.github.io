@@ -6,6 +6,8 @@ paimonchan.io is the landing page directory that links to all of paimonchan's we
 ## Projects
 
 - [Paimon Tools](https://paimonchan.github.io/paimon-tools/): Free, private, in-browser data conversion tools — JSON, CSV, Excel. 100% client-side, no uploads, no sign-up.
+  - Full AI content: [paimonchan.github.io/paimon-tools/llms.txt](https://paimonchan.github.io/paimon-tools/llms.txt)
+  - Extended content: [paimonchan.github.io/paimon-tools/llms-full.txt](https://paimonchan.github.io/paimon-tools/llms-full.txt)
 - [Paimon Board](https://paimonchan.github.io/paimon-board/): Project board (coming soon).
 
 ## About
@@ -15,3 +17,11 @@ paimonchan.io is the home page for paimonchan's open-source projects. Each proje
 - **Tech stack**: React 19, TypeScript 7, Vite 8, Tailwind CSS v4
 - **Design**: Warm ink/honey palette, dark-first with light mode support
 - **GitHub**: https://github.com/paimonchan/paimonchan.github.io
+
+## LLM Discovery
+
+This hub links to sub-project llms.txt files at their respective site roots:
+
+| Project | llms.txt | llms-full.txt |
+|---------|----------|---------------|
+| Paimon Tools | [/paimon-tools/llms.txt](https://paimonchan.github.io/paimon-tools/llms.txt) | [/paimon-tools/llms-full.txt](https://paimonchan.github.io/paimon-tools/llms-full.txt) |
