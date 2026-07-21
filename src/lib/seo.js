@@ -56,12 +56,12 @@ export const SITES = [
     category: 'Tools',
     tagline: 'Private, in-browser data conversion',
     description:
-      'Convert JSON, CSV and Excel against each other, plus a JS/Python/HTML playground. Everything runs locally; no uploads, no sign-up.',
+      'Convert JSON, CSV and Excel, run code in a JS/Python/HTML playground, compare texts with Diff Tool, combine files, format JSON, encode Base64, generate UUIDs and SHA-256 hashes. 16+ free tools, all client-side.',
     url: 'https://paimonchan.github.io/paimon-tools/',
     repo: 'https://github.com/paimonchan/paimon-tools',
     status: 'live',
-    keywords: ['json', 'csv', 'excel', 'xlsx', 'convert', 'converter', 'data', 'playground', 'code'],
-    features: ['JSON/CSV/XLSX', 'Code playground', '100% client-side'],
+    keywords: ['json', 'csv', 'excel', 'xlsx', 'convert', 'converter', 'data', 'playground', 'code', 'diff', 'base64', 'yaml', 'hash', 'uuid', 'delimiter', 'combine'],
+    features: ['16+ free tools', 'Code playground', '100% client-side'],
     slug: 'paimon-tools',
   },
   {
@@ -113,10 +113,13 @@ export const HOME_SEO = {
 }
 
 function buildHomeBodyHtml() {
-  const items = SITES.map(
-    (s) =>
-      `      <li><a href="${s.url}"><strong>${s.name}</strong> - ${s.tagline}. ${s.description}</a></li>`
-  ).join('\n')
+  const items = SITES.map((s) => {
+    let extra = ''
+    if (s.id === 'paimon-tools') {
+      extra = ' Includes 16+ tools: JSON to CSV, CSV to JSON, JSON to Excel, Excel to JSON, CSV to Excel, Excel to CSV, JSON Formatter, JSON Minifier, YAML to JSON, JSON to YAML, Base64 Encode/Decode, SHA-256 Hash, UUID Generator, Diff Tool, Text Delimiter, Combine Files, and a Code Playground (JavaScript, TypeScript, Python, HTML).'
+    }
+    return `      <li><a href="${s.url}"><strong>${s.name}</strong> - ${s.tagline}. ${s.description}${extra}</a></li>`
+  }).join('\n')
   return `<h1>paimonchan.io - a hub of io projects</h1>
   <p>A directory of paimonchan's io projects. Every site runs in your browser. Privacy-first, no tracking, no sign-up.</p>
   <h2>Projects</h2>
