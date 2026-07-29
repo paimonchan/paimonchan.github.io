@@ -18,6 +18,7 @@ import {
   Braces,
   PenTool,
   Activity,
+  Newspaper,
   Globe,
   type LucideProps,
 } from 'lucide-react'
@@ -64,6 +65,7 @@ export type SiteWithIcon = SiteEntry & {
 const ICONS: Record<string, ComponentType<LucideProps>> = {
   'paimon-tools': Braces,
   'paimon-board': PenTool,
+  'paimon-news': Newspaper,
   paimonitor: Activity,
 }
 

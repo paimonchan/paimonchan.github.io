@@ -79,6 +79,20 @@ export const SITES = [
     slug: 'paimon-board',
   },
   {
+    id: 'paimon-news',
+    name: 'Paimon News',
+    category: 'Apps',
+    tagline: 'Tech news & AI headlines, curated daily',
+    description:
+      'A clean, curated feed of technology news and AI/ML headlines. Aggregated daily from multiple sources, delivered without noise. Built with Next.js on Vercel.',
+    url: 'https://paimon-news.vercel.app',
+    repo: 'https://github.com/paimonchan/paimon-news',
+    status: 'live',
+    keywords: ['news', 'tech', 'ai', 'headlines', 'daily', 'curated', 'aggregator', 'nextjs'],
+    features: ['Daily curated feed', 'Tech + AI focus', 'Next.js on Vercel'],
+    slug: 'paimon-news',
+  },
+  {
     id: 'paimonitor',
     name: 'Paimonitor',
     category: 'Coming soon',
@@ -104,7 +118,7 @@ export const HOME_SEO = {
   description:
     'A curated directory of free, open source, privacy-first web tools and real-time apps by paimonchan. In-browser data converters (JSON, CSV, Excel), collaborative whiteboards, and more. No sign-up, no tracking, 100% client-side.',
   keywords:
-    'paimonchan, paimonchan.io, paimon tools, paimon board, io projects, github pages, web tools, browser tools, json csv excel, whiteboard',
+    'paimonchan, paimonchan.io, paimon tools, paimon board, paimon news, io projects, github pages, web tools, browser tools, json csv excel, whiteboard, tech news',
   ogImage: DEFAULT_OG_IMAGE,
   ogImageAlt: DEFAULT_OG_ALT,
   // Keyword-rich, crawlable HTML for the <noscript> / prerendered body.
