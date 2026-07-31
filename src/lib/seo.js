@@ -93,20 +93,6 @@ export const SITES = [
     slug: 'paimon-board',
   },
   {
-    id: 'paimon-news',
-    name: 'Paimon News',
-    category: 'Apps',
-    tagline: 'Tech news & AI headlines, curated daily',
-    description:
-      'A clean, curated feed of technology news and AI/ML headlines. Aggregated daily from multiple sources, delivered without noise. Built with Next.js on Vercel.',
-    url: 'https://paimon-news.vercel.app',
-    repo: 'https://github.com/paimonchan/paimon-news',
-    status: 'live',
-    keywords: ['news', 'tech', 'ai', 'headlines', 'daily', 'curated', 'aggregator', 'nextjs'],
-    features: ['Daily curated feed', 'Tech + AI focus', 'Next.js on Vercel'],
-    slug: 'paimon-news',
-  },
-  {
     id: 'paimonitor',
     name: 'Paimonitor',
     category: 'Coming soon',
