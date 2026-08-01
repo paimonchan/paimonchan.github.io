@@ -73,7 +73,7 @@ export const SITES = [
     tagline: 'Tech news & AI headlines, curated daily',
     description:
       'A clean, curated feed of technology news and AI/ML headlines. Aggregated daily from multiple sources, delivered without noise. Built with Next.js on Vercel.',
-    url: 'https://paimon-news.vercel.app',
+    url: 'https://www.paimonchan.com',
     repo: 'https://github.com/paimonchan/paimon-news',
     status: 'live',
     keywords: ['news', 'tech', 'ai', 'headlines', 'daily', 'curated', 'aggregator', 'nextjs'],
