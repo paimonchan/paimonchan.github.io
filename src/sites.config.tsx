@@ -19,7 +19,7 @@ import {
   PenTool,
   Activity,
   Newspaper,
-  FileSpreadsheet,
+  Briefcase,
   Languages,
   Globe,
   type LucideProps,
@@ -68,7 +68,7 @@ const ICONS: Record<string, ComponentType<LucideProps>> = {
   'paimon-tools': Braces,
   'paimon-board': PenTool,
   'paimon-news': Newspaper,
-  'paimon-excel': FileSpreadsheet,
+  'paimon-office': Briefcase,
   'paimon-translate': Languages,
   paimonitor: Activity,
 }
