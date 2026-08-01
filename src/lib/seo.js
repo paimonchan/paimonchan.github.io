@@ -148,7 +148,21 @@ export const SITES = [
     status: 'soon',
     keywords: ['terminal', 'ssh', 'sftp', 'mobaxterm', 'tauri', 'rust', 'serial', 'network', 'plugin'],
     features: ['SSH + SFTP', 'Tauri + Rust', 'Plugin system'],
-    slug: 'paimonchan-term',
+    slug: 'paimonchan-term*',
+  },
+  {
+    id: 'paimon-transfer',
+    name: 'Paimon Transfer',
+    category: 'Coming soon',
+    tagline: 'Peer-to-peer file transfer, Snapdrop-style',
+    description:
+      'Send files directly between devices over WebRTC — no upload, no server, no size limits. Same privacy-first ethos as the rest of the family.',
+    url: 'https://github.com/paimonchan/paimon-transfer',
+    repo: 'https://github.com/paimonchan/paimon-transfer',
+    status: 'soon',
+    keywords: ['transfer', 'file', 'share', 'send', 'p2p', 'webrtc', 'snapdrop', 'device'],
+    features: ['P2P direct', 'No upload', 'No size limit'],
+    slug: 'paimon-transfer*',
   },
 ]
 

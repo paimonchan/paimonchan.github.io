@@ -22,6 +22,7 @@ import {
   Briefcase,
   Languages,
   Terminal,
+  ArrowLeftRight,
   Globe,
   type LucideProps,
 } from 'lucide-react'
@@ -72,6 +73,7 @@ const ICONS: Record<string, ComponentType<LucideProps>> = {
   'paimon-office': Briefcase,
   'paimon-translate': Languages,
   'paimonchan-term': Terminal,
+  'paimon-transfer': ArrowLeftRight,
   paimonitor: Activity,
 }
 
