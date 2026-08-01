@@ -5,7 +5,9 @@ of links to each site (paimon-tools, paimon-board, …). Lives at the GitHub
 Pages **user site** root: `https://paimonchan.github.io/`.
 
 This is the doorway. Each io project is its own repo and deploys to its own
-subpath (`/paimon-tools/`, `/paimon-board/`, …); this page just collects them.
+home — either a GitHub Pages subpath (`/paimon-tools/`, `/paimon-board/`) or
+its own domain (`www.paimonchan.com`, `paimonitor.com`); this page just
+collects them.
 
 ## Stack
 
@@ -90,9 +92,9 @@ paimon-io/
     ├── components/
     │   ├── BrandMark.tsx          # portal glyph tile
     │   ├── Header.tsx
-    │   ├── Hero.tsx               # wordmark + search input
+    │   ├── Hero.tsx               # value-prop headline + search input
     │   ├── SiteCard.tsx           # one io project card
-    │   ├── SiteGrid.tsx           # groups cards by category
+    │   ├── SiteGrid.tsx           # orders cards by status (live → ongoing → soon)
     │   ├── Footer.tsx
     │   ├── ThemeToggle.tsx
     │   └── ErrorBoundary.tsx
