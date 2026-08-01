@@ -81,6 +81,20 @@ export const SITES = [
     slug: 'paimon-news',
   },
   {
+    id: 'paimonitor',
+    name: 'Paimonitor',
+    category: 'Apps',
+    tagline: 'Regional service monitoring dashboard',
+    description:
+      'Real-time monitoring of services across global regions. A full-stack app tracking uptime and status.',
+    url: 'https://paimonitor.com',
+    repo: 'https://github.com/paimonchan/paimonitor',
+    status: 'live',
+    keywords: ['monitor', 'monitoring', 'dashboard', 'uptime', 'region', 'status'],
+    features: ['Multi-region', 'Realtime status'],
+    slug: 'paimonitor',
+  },
+  {
     id: 'paimon-board',
     name: 'Paimon Board',
     category: 'Apps',
@@ -121,20 +135,6 @@ export const SITES = [
     keywords: ['manga', 'translate', 'ocr', 'inpainting', 'manhwa', 'manhua', 'typeset', 'llm'],
     features: ['YOLO + OCR', 'LaMa inpainting', 'CPU-only'],
     slug: 'paimon-translate',
-  },
-  {
-    id: 'paimonitor',
-    name: 'Paimonitor',
-    category: 'Coming soon',
-    tagline: 'Regional service monitoring dashboard',
-    description:
-      'Real-time monitoring of services across global regions. A full-stack app (Next.js + Go), landing here as a placeholder until it ships.',
-    url: 'https://github.com/paimonchan/paimonitor',
-    repo: 'https://github.com/paimonchan/paimonitor',
-    status: 'soon',
-    keywords: ['monitor', 'monitoring', 'dashboard', 'uptime', 'region', 'status'],
-    features: ['Next.js + Go', 'Multi-region', 'Realtime status'],
-    slug: 'paimonitor',
   },
 ]
 
