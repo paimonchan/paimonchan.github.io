@@ -7,17 +7,21 @@ paimonchan.io is the landing page directory for paimonchan's web projects. The p
 
 - **Tech stack**: React 19, TypeScript 7, Vite 8, Tailwind CSS v4
 - **Design**: Warm ink/honey palette, dark-first with light mode support
-- **License**: MIT
+- **License**: All rights reserved (personal project, source visible for portfolio)
 
 ---
 
-## Paimon Tools
+## Projects
 
+### Paimon Tools — live
 > 100% client-side data conversion tools. Your data never leaves the browser.
 
 Paimon Tools is a free, open-source collection of in-browser utilities. All processing happens locally with zero network requests.
 
-### Convert
+- **Site**: https://paimonchan.github.io/paimon-tools/
+- **Repo**: https://github.com/paimonchan/paimon-tools
+
+#### Convert
 
 - [JSON to CSV](https://paimonchan.github.io/paimon-tools/json-to-csv/): Convert JSON arrays to CSV tables. Keys become column headers, values become rows. Nested objects are stringified.
 - [CSV to JSON](https://paimonchan.github.io/paimon-tools/csv-to-json/): Convert CSV tables to JSON arrays. Supports standard CSV escaping and quoted fields.
@@ -30,20 +34,20 @@ Paimon Tools is a free, open-source collection of in-browser utilities. All proc
 - [Base64 Encode](https://paimonchan.github.io/paimon-tools/base64-encode/): Encode text to Base64. UTF-8 safe — handles Unicode, emoji, and special characters.
 - [Base64 Decode](https://paimonchan.github.io/paimon-tools/base64-decode/): Decode Base64 strings back to readable text.
 
-### Format & Manipulate
+#### Format & Manipulate
 
 - [JSON Formatter](https://paimonchan.github.io/paimon-tools/json-formatter/): Pretty-print and validate JSON. Choose 2-space, 4-space, or tab indentation. Auto-validates on every keystroke with inline error messages.
 - [JSON Minifier](https://paimonchan.github.io/paimon-tools/json-minifier/): Compress JSON by stripping unnecessary whitespace. Validates syntax as it goes.
 - [Text Delimiter Tool](https://paimonchan.github.io/paimon-tools/text-delimiter/): Join list items with custom delimiter, quotes, and wrapping. Perfect for SQL IN clauses, HTML lists, and array literals.
 
-### Developer Tools
+#### Developer Tools
 
 - [Diff Tool](https://paimonchan.github.io/paimon-tools/diff-tool/): Compare two texts side by side. Color-coded added (green), removed (red), and modified lines. No file size limits.
 - [UUID Generator](https://paimonchan.github.io/paimon-tools/uuid-generator/): Generate random UUID v4 identifiers. Uses Web Crypto API for cryptographically secure random values.
 - [SHA-256 Hash Generator](https://paimonchan.github.io/paimon-tools/hash-generator/): Generate SHA-256 hashes of text or files. Uses the Web Crypto API — the same implementation browsers use for HTTPS.
 - [Combine Files](https://paimonchan.github.io/paimon-tools/combine-files/): Merge multiple CSV, TSV, and Excel files into one. Auto-detects format and unions columns. Supports mixed formats.
 
-### Code Playground
+#### Code Playground
 
 - [Code Playground](https://paimonchan.github.io/paimon-tools/code/): Multi-language online code editor supporting JavaScript, TypeScript, Python, HTML, and JSON.
 - [JavaScript](https://paimonchan.github.io/paimon-tools/code/javascript/): Sandboxed JS execution via Web Worker. Supports setTimeout, setInterval, fetch with async callback capture.
@@ -51,6 +55,53 @@ Paimon Tools is a free, open-source collection of in-browser utilities. All proc
 - [Python](https://paimonchan.github.io/paimon-tools/code/python/): Full CPython via Pyodide WASM (~12 MB, cached after first load). Standard library support.
 - [HTML](https://paimonchan.github.io/paimon-tools/code/html/): Live iframe preview with srcdoc. Sandboxed execution with no access to parent page.
 - [JSON](https://paimonchan.github.io/paimon-tools/code/json/): Format, validate, and edit JSON with CodeMirror 6 editor.
+
+### Paimon News — live
+> Tech news & AI headlines, curated daily.
+
+A clean, curated feed of technology news and AI/ML headlines. Aggregated daily from multiple sources, delivered without noise. Built with Next.js on Vercel.
+
+- **Site**: https://www.paimonchan.com
+- **Repo**: https://github.com/paimonchan/paimon-news
+
+### Paimonitor — live
+> Regional service monitoring dashboard.
+
+Real-time monitoring of services across global regions. A full-stack app tracking uptime and status.
+
+- **Site**: https://paimonitor.com
+- **Repo**: https://github.com/paimonchan/paimonitor
+
+### Paimon Board — live
+> Real-time collaborative whiteboard.
+
+A boardmix-style whiteboard with peer-to-peer realtime sync. Draw, sketch and brainstorm together. Sessions are shared over WebRTC, no server.
+
+- **Site**: https://paimonchan.github.io/paimon-board/
+- **Repo**: https://github.com/paimonchan/paimon-board
+
+### Paimon Office — ongoing
+> Office suite tools, in development.
+
+Office-focused utilities for the paimon family. Under active development.
+
+- **Repo**: https://github.com/paimonchan/paimon-office
+
+### Paimon Translate — ongoing
+> Manga auto-translation, CPU-only.
+
+Auto-translate manga, manhua and manhwa: YOLO text detection, OCR, LaMa inpainting, LLM translation and typesetting. Hybrid pipeline that runs on CPU — no GPU required.
+
+- **Repo**: https://github.com/paimonchan/paimon-translate
+
+### Paimon Term — coming soon
+> Cross-platform terminal, inspired by MobaXterm.
+
+A modern cross-platform terminal with SSH/SFTP, session management, network tools and a plugin system. Built with Tauri v2 + Rust + React.
+
+- **Repo**: https://github.com/paimonchan/paimonchan-term
+
+---
 
 ## Tech Stack Details
 
@@ -67,12 +118,10 @@ Paimon Tools is a free, open-source collection of in-browser utilities. All proc
 
 1. **Privacy**: No data is ever sent to a server. Every conversion and execution happens locally in your browser.
 2. **Offline-capable**: After initial load, tools work without internet access.
-3. **Free & Open Source**: No paid tiers, no usage limits, no account required. MIT license.
+3. **Free & Open Source**: No paid tiers, no usage limits, no account required.
 4. **No tracking built-in**: Analytics (Umami) is privacy-first with no cookies. Data never leaves the site.
 
 ## Links
 
-- **Paimon Tools app**: https://paimonchan.github.io/paimon-tools/
-- **GitHub repository**: https://github.com/paimonchan/paimon-tools
-- **Paimon Board**: https://paimonchan.github.io/paimon-board/ (coming soon)
+- **Gateway**: https://paimonchan.github.io/
 - **Gateway source**: https://github.com/paimonchan/paimonchan.github.io
