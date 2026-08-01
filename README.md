@@ -63,17 +63,10 @@ npm run preview    # serve the built dist/
 
 ## Deployment
 
-This repo is intended to become the `paimonchan.github.io` user-site repo.
+This repo IS the `paimonchan.github.io` user-site repo — the gateway is live
+at https://paimonchan.github.io/.
 
-**One-time setup** (do this once, on GitHub):
-
-1. Create an **empty** repo named `paimonchan.github.io` (must match the
-   username exactly — no other name will publish to the bare domain).
-2. Push this project to `main`.
-3. In the repo: **Settings → Pages → Build and deployment → Source:
-   GitHub Actions**. (Not "Deploy from a branch" — the workflow handles it.)
-4. The `Deploy to GitHub Pages` workflow runs on every push to `main` and
-   publishes to `https://paimonchan.github.io/`.
+Push to `main` triggers the `Deploy to GitHub Pages` workflow automatically.
 
 > Existing project sites (`/paimon-tools/`, `/paimon-board/`) keep working —
 > the user-site repo only owns the root path, not the subpaths.
