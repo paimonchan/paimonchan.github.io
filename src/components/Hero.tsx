@@ -54,23 +54,23 @@ export default function Hero({
 
         {/* Stats line — mini badges */}
         <div className="mt-4 flex items-center justify-center gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-700 bg-ink-800/60 px-2.5 py-0.5 text-[11px]">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-600 bg-ink-800/70 px-2.5 py-0.5 text-[11px]">
             <span className="h-1.5 w-1.5 rounded-full bg-honey-400" />
-            <span className="font-mono text-ink-200">{liveCount}</span>
-            <span className="text-ink-400">live</span>
+            <span className="font-mono text-ink-100">{liveCount}</span>
+            <span className="text-ink-300">live</span>
           </span>
           {ongoingCount > 0 && (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-800 bg-ink-900/60 px-2.5 py-0.5 text-[11px]">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-600 bg-ink-800/70 px-2.5 py-0.5 text-[11px]">
               <span className="h-1.5 w-1.5 rounded-full bg-honey-600/80" />
-              <span className="font-mono text-ink-300">{ongoingCount}</span>
-              <span className="text-ink-400">ongoing</span>
+              <span className="font-mono text-ink-100">{ongoingCount}</span>
+              <span className="text-ink-300">ongoing</span>
             </span>
           )}
           {soonCount > 0 && (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-800 bg-ink-900/60 px-2.5 py-0.5 text-[11px]">
-              <span className="h-1.5 w-1.5 rounded-full bg-ink-500" />
-              <span className="font-mono text-ink-400">{soonCount}</span>
-              <span className="text-ink-500">coming</span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-600 bg-ink-800/70 px-2.5 py-0.5 text-[11px]">
+              <span className="h-1.5 w-1.5 rounded-full bg-ink-400" />
+              <span className="font-mono text-ink-100">{soonCount}</span>
+              <span className="text-ink-300">coming</span>
             </span>
           )}
         </div>
@@ -80,14 +80,14 @@ export default function Hero({
       {showSearch && (
         <div className="mx-auto mt-4 max-w-md">
           <div className="group relative flex items-center">
-            <Search className="pointer-events-none absolute left-3.5 h-4 w-4 text-ink-500 transition-colors group-focus-within:text-honey-400" />
+            <Search className="pointer-events-none absolute left-3.5 h-4 w-4 text-ink-400 transition-colors group-focus-within:text-honey-400" />
             <input
               type="text"
               value={query}
               onChange={(e) => onQueryChange(e.target.value)}
               placeholder="Filter projects by name or keyword"
               aria-label="Filter projects"
-              className="w-full rounded-lg border border-ink-800 bg-ink-900 py-2.5 pl-11 pr-16 text-sm text-ink-100 placeholder:text-ink-500 transition-colors focus:border-ink-600 focus-visible:outline-none"
+              className="w-full rounded-lg border border-ink-600 bg-ink-900 py-2.5 pl-11 pr-16 text-sm text-ink-100 placeholder:text-ink-400 transition-colors focus:border-honey-500/70 focus:shadow-[0_0_0_3px_rgba(231,172,52,0.10)] focus-visible:outline-none"
             />
             {query ? (
               <button

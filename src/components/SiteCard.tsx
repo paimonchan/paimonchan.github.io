@@ -53,10 +53,16 @@ export default function SiteCard({ site, index, total }: SiteCardProps) {
         'group relative flex animate-[slide-up_0.2s_ease-out_both] flex-col overflow-hidden rounded-lg border p-4',
         'shadow-[var(--shadow-card)] transition-all duration-150',
         isLive
-          ? 'border-ink-700 bg-ink-900 hover:border-honey-500/60 hover:shadow-[var(--shadow-card-hover)]'
-          : 'border-ink-800 bg-ink-900/60 hover:border-ink-600',
+          ? 'border-ink-600 bg-ink-800 hover:border-honey-500/60 hover:shadow-[var(--shadow-card-hover)]'
+          : 'border-ink-700 bg-ink-800/70 hover:border-ink-500 hover:shadow-[var(--shadow-card-hover)]',
       ].join(' ')}
     >
+      {/* Top highlight — 1px light edge so the card reads as raised off the bg */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
+      />
+
       {/* Stretched link — native <a>, no JS needed for navigation */}
       <a
         href={href}
@@ -83,10 +89,10 @@ export default function SiteCard({ site, index, total }: SiteCardProps) {
             className={[
               'flex h-11 w-11 items-center justify-center rounded-lg',
               'shadow-[var(--shadow-tile)]',
-              isLive ? 'accent-gradient' : 'bg-ink-800 ring-1 ring-ink-700',
+              isLive ? 'accent-gradient' : 'bg-ink-900 ring-1 ring-ink-600',
             ].join(' ')}
           >
-            <Icon className={['h-5 w-5', isLive ? 'text-ink-950' : 'text-ink-400'].join(' ')} />
+            <Icon className={['h-5 w-5', isLive ? 'text-ink-950' : 'text-ink-300'].join(' ')} />
           </div>
           <span className="font-mono text-[10px] text-ink-500">{number}</span>
         </div>
@@ -100,14 +106,14 @@ export default function SiteCard({ site, index, total }: SiteCardProps) {
       >
         {site.name}
       </h3>
-      <p className={['relative mt-1 text-[12px] font-500', isLive ? 'text-honey-400' : 'text-ink-500'].join(' ')}>
+      <p className={['relative mt-1 text-[12px] font-500', isLive ? 'text-honey-400' : 'text-ink-400'].join(' ')}>
         {site.tagline}
       </p>
 
       {/* Description */}
       <p
         itemProp="description"
-        className="relative mt-2 line-clamp-2 text-[12.5px] leading-relaxed text-ink-400"
+        className="relative mt-2 line-clamp-2 text-[12.5px] leading-relaxed text-ink-300/85"
       >
         {site.description}
       </p>
@@ -140,7 +146,7 @@ export default function SiteCard({ site, index, total }: SiteCardProps) {
           href={site.repo}
           target="_blank"
           rel="noopener noreferrer"
-          className="relative z-20 -m-1 flex items-center gap-1 rounded p-1 text-[10px] text-ink-500 outline-none transition-colors hover:text-ink-200 focus-visible:ring-2 focus-visible:ring-honey-400"
+          className="relative z-20 -m-1 flex items-center gap-1 rounded p-1 text-[10px] text-ink-300 outline-none transition-colors hover:text-ink-100 focus-visible:ring-2 focus-visible:ring-honey-400"
           aria-label={`View ${site.name} source on GitHub`}
           onClick={(e) => e.stopPropagation()}
         >
@@ -151,8 +157,8 @@ export default function SiteCard({ site, index, total }: SiteCardProps) {
           className={[
             'flex items-center gap-1 text-[11px] font-600 transition-colors',
             isLive
-              ? 'text-ink-200 group-hover:text-honey-300'
-              : 'text-ink-500 group-hover:text-ink-300',
+              ? 'text-ink-100 group-hover:text-honey-300'
+              : 'text-ink-300 group-hover:text-ink-100',
           ].join(' ')}
         >
           {isLive ? 'Open' : 'Repo'}
@@ -182,8 +188,8 @@ function SlugBadge({ slug, status }: { slug: string; status: 'live' | 'ongoing' 
       className={[
         'shrink-0 inline-flex items-center gap-1.5 rounded border px-1.5 py-0.5 font-mono text-[9.5px]',
         isLive
-          ? 'border-ink-700 bg-ink-800 text-ink-300'
-          : 'border-ink-800 bg-ink-900 text-ink-500',
+          ? 'border-ink-600 bg-ink-900 text-ink-300'
+          : 'border-ink-700 bg-ink-900 text-ink-400',
       ].join(' ')}
     >
       <span
