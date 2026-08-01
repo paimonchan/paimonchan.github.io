@@ -45,11 +45,11 @@ export default function SiteGrid({ sites, onClearFilter }: SiteGridProps) {
     )
   }
 
-  // Live first, then soon - stable, predictable ordering.
-  const ordered = [...sites].sort((a, b) => {
-    if (a.status === b.status) return 0
-    return a.status === 'live' ? -1 : 1
-  })
+  // Live first, then ongoing, then soon - stable, predictable ordering.
+  const STATUS_ORDER: Record<string, number> = { live: 0, ongoing: 1, soon: 2 }
+  const ordered = [...sites].sort(
+    (a, b) => (STATUS_ORDER[a.status] ?? 9) - (STATUS_ORDER[b.status] ?? 9)
+  )
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-12 sm:px-5">

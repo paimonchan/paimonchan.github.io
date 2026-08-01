@@ -15,6 +15,7 @@ interface HeroProps {
   onQueryChange: (q: string) => void
   matchCount: number
   liveCount: number
+  ongoingCount: number
   soonCount: number
   showSearch: boolean
 }
@@ -24,6 +25,7 @@ export default function Hero({
   onQueryChange,
   matchCount,
   liveCount,
+  ongoingCount,
   soonCount,
   showSearch,
 }: HeroProps) {
@@ -57,6 +59,13 @@ export default function Hero({
             <span className="font-mono text-ink-200">{liveCount}</span>
             <span className="text-ink-400">live</span>
           </span>
+          {ongoingCount > 0 && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-800 bg-ink-900/60 px-2.5 py-0.5 text-[11px]">
+              <span className="h-1.5 w-1.5 rounded-full bg-honey-600/80" />
+              <span className="font-mono text-ink-300">{ongoingCount}</span>
+              <span className="text-ink-400">ongoing</span>
+            </span>
+          )}
           {soonCount > 0 && (
             <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-800 bg-ink-900/60 px-2.5 py-0.5 text-[11px]">
               <span className="h-1.5 w-1.5 rounded-full bg-ink-500" />
@@ -97,7 +106,7 @@ export default function Hero({
           {query && (
             <div className="mt-1.5 text-center text-[11px] text-ink-500">
               <span className="font-mono text-ink-300">{matchCount}</span> of{' '}
-              <span className="font-mono">{liveCount + soonCount}</span> projects
+              <span className="font-mono">{liveCount + ongoingCount + soonCount}</span> projects
             </div>
           )}
         </div>

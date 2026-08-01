@@ -24,6 +24,7 @@ function Gateway() {
   const [query, setQuery] = useState('')
 
   const liveCount = SITES_WITH_ICONS.filter((s) => s.status === 'live').length
+  const ongoingCount = SITES_WITH_ICONS.filter((s) => s.status === 'ongoing').length
   const soonCount = SITES_WITH_ICONS.filter((s) => s.status === 'soon').length
 
   // Only render the search box when filtering would actually pay off.
@@ -58,6 +59,7 @@ function Gateway() {
           onQueryChange={setQuery}
           matchCount={filtered.length}
           liveCount={liveCount}
+          ongoingCount={ongoingCount}
           soonCount={soonCount}
           showSearch={showSearch}
         />

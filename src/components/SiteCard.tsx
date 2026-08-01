@@ -90,7 +90,7 @@ export default function SiteCard({ site, index, total }: SiteCardProps) {
           </div>
           <span className="font-mono text-[10px] text-ink-500">{number}</span>
         </div>
-        <SlugBadge slug={site.slug} isLive={isLive} />
+        <SlugBadge slug={site.slug} status={site.status} />
       </div>
 
       {/* Name + tagline */}
@@ -170,11 +170,13 @@ export default function SiteCard({ site, index, total }: SiteCardProps) {
 /**
  * SlugBadge — the URL path segment, in mono.
  *
- * Replaces the old "live/soon" pill. The honey dot pulses for live
- * sites; "soon" projects show a static ink dot. Cleaner than the old
- * '*' suffix — the dot signals status at a glance.
+ * The status dot tells the state at a glance:
+ *   - live    : honey dot, pulsing
+ *   - ongoing : honey dot, static (in development)
+ *   - soon    : ink dot, static (placeholder)
  */
-function SlugBadge({ slug, isLive }: { slug: string; isLive: boolean }) {
+function SlugBadge({ slug, status }: { slug: string; status: 'live' | 'ongoing' | 'soon' }) {
+  const isLive = status === 'live'
   return (
     <span
       className={[
@@ -189,7 +191,9 @@ function SlugBadge({ slug, isLive }: { slug: string; isLive: boolean }) {
           'h-1.5 w-1.5 rounded-full',
           isLive
             ? 'bg-honey-400 animate-[pulse-dot_2s_ease-in-out_infinite]'
-            : 'bg-ink-500',
+            : status === 'ongoing'
+              ? 'bg-honey-600/80'
+              : 'bg-ink-500',
         ].join(' ')}
       />
       /{slug}

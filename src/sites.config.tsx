@@ -19,6 +19,8 @@ import {
   PenTool,
   Activity,
   Newspaper,
+  FileSpreadsheet,
+  Languages,
   Globe,
   type LucideProps,
 } from 'lucide-react'
@@ -47,7 +49,7 @@ export interface SiteEntry {
   description: string
   url: string
   repo: string
-  status: 'live' | 'soon'
+  status: 'live' | 'ongoing' | 'soon'
   keywords: string[]
   features: string[]
   slug: string
@@ -66,6 +68,8 @@ const ICONS: Record<string, ComponentType<LucideProps>> = {
   'paimon-tools': Braces,
   'paimon-board': PenTool,
   'paimon-news': Newspaper,
+  'paimon-excel': FileSpreadsheet,
+  'paimon-translate': Languages,
   paimonitor: Activity,
 }
 

@@ -25,7 +25,7 @@ export const SITE_URL = 'https://paimonchan.github.io'
  * added here — the grid iterates this array, not the raw SITES list, so an
  * unknown category would silently never render.
  */
-export const CATEGORIES = ['Tools', 'Apps', 'Coming soon']
+export const CATEGORIES = ['Tools', 'Apps', 'Ongoing', 'Coming soon']
 
 /**
  * One io project. Keep field names short and self-describing.
@@ -38,7 +38,9 @@ export const CATEGORIES = ['Tools', 'Apps', 'Coming soon']
  * @property {string} description  Longer copy for the card body.
  * @property {string} url          Absolute URL of the live site.
  * @property {string} repo         Absolute URL of the source repo.
- * @property {'live'|'soon'} status  'live' = has a working site; 'soon' = placeholder.
+ * @property {'live'|'ongoing'|'soon'} status  'live' = has a working site;
+ *                                  'ongoing' = actively developed, repo link
+ *                                  (no public site yet); 'soon' = placeholder.
  * @property {string[]} keywords   Lowercase search tokens for the filter box.
  * @property {string[]} features   Short capability badges shown on the card
  *                                  (2-4 items). Keep them scannable - noun-ish.
@@ -91,6 +93,34 @@ export const SITES = [
     keywords: ['whiteboard', 'board', 'collab', 'draw', 'sketch', 'realtime', 'webrtc', 'yjs'],
     features: ['P2P realtime', 'No server', 'Excalidraw engine'],
     slug: 'paimon-board',
+  },
+  {
+    id: 'paimon-excel',
+    name: 'Paimon Excel',
+    category: 'Ongoing',
+    tagline: 'Spreadsheet tools, in development',
+    description:
+      'Excel-focused utilities for the paimon family. Under active development - details coming soon.',
+    url: 'https://github.com/paimonchan/paimon-excel',
+    repo: 'https://github.com/paimonchan/paimon-excel',
+    status: 'ongoing',
+    keywords: ['excel', 'spreadsheet', 'xlsx', 'sheet', 'tools'],
+    features: ['Excel tools', 'In-browser'],
+    slug: 'paimon-excel',
+  },
+  {
+    id: 'paimon-translate',
+    name: 'Paimon Translate',
+    category: 'Ongoing',
+    tagline: 'Manga auto-translation, CPU-only',
+    description:
+      'Auto-translate manga, manhua and manhwa: YOLO text detection, OCR, LaMa inpainting, LLM translation and typesetting. Hybrid pipeline that runs on CPU - no GPU required.',
+    url: 'https://github.com/paimonchan/paimon-translate',
+    repo: 'https://github.com/paimonchan/paimon-translate',
+    status: 'ongoing',
+    keywords: ['manga', 'translate', 'ocr', 'inpainting', 'manhwa', 'manhua', 'typeset', 'llm'],
+    features: ['YOLO + OCR', 'LaMa inpainting', 'CPU-only'],
+    slug: 'paimon-translate',
   },
   {
     id: 'paimonitor',
