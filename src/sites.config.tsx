@@ -21,6 +21,7 @@ import {
   Newspaper,
   Briefcase,
   Languages,
+  Terminal,
   Globe,
   type LucideProps,
 } from 'lucide-react'
@@ -70,6 +71,7 @@ const ICONS: Record<string, ComponentType<LucideProps>> = {
   'paimon-news': Newspaper,
   'paimon-office': Briefcase,
   'paimon-translate': Languages,
+  'paimonchan-term': Terminal,
   paimonitor: Activity,
 }
 

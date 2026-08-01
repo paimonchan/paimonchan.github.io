@@ -136,6 +136,20 @@ export const SITES = [
     features: ['YOLO + OCR', 'LaMa inpainting', 'CPU-only'],
     slug: 'paimon-translate',
   },
+  {
+    id: 'paimonchan-term',
+    name: 'Paimon Term',
+    category: 'Coming soon',
+    tagline: 'Cross-platform terminal, inspired by MobaXterm',
+    description:
+      'A modern cross-platform terminal with SSH/SFTP, session management, network tools and a plugin system. Built with Tauri v2 + Rust + React.',
+    url: 'https://github.com/paimonchan/paimonchan-term',
+    repo: 'https://github.com/paimonchan/paimonchan-term',
+    status: 'soon',
+    keywords: ['terminal', 'ssh', 'sftp', 'mobaxterm', 'tauri', 'rust', 'serial', 'network', 'plugin'],
+    features: ['SSH + SFTP', 'Tauri + Rust', 'Plugin system'],
+    slug: 'paimonchan-term',
+  },
 ]
 
 /* --- Home page meta --- */
