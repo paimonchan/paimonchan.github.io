@@ -7,9 +7,20 @@
  *
  * The search filter only renders when there are enough projects to justify it
  * (see SEARCH_THRESHOLD). Below that the list is faster to scan than to query.
+ *
+ * Popular keyword chips sit under the box — one-click shortcuts into the same
+ * filter. Clicking the active chip again clears the query (toggle).
  */
+import { useRef } from 'react'
 import { Search, X } from 'lucide-react'
 import type { StatusFilter } from '../hooks/useFilter'
+
+/**
+ * One-click keyword shortcuts under the search box. Each maps to real tokens
+ * in `lib/seo.js` keywords, so a chip always returns at least one card.
+ * "excel" leads with 2 hits (paimon-tools + paimon-office).
+ */
+const POPULAR_KEYWORDS = ['excel', 'json', 'ai', 'manga', 'terminal']
 
 interface HeroProps {
   query: string
@@ -34,6 +45,9 @@ export default function Hero({
   onStatusFilterChange,
   showSearch,
 }: HeroProps) {
+  // Keep a handle on the input so chips can refocus it after filling the query.
+  const inputRef = useRef<HTMLInputElement>(null)
+
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pt-8 pb-5 animate-[fade-in_0.4s_ease-out_0.1s_both] sm:px-5 md:pt-12 md:pb-7">
       <div className="text-center">
@@ -100,10 +114,11 @@ export default function Hero({
 
       {/* Search - only when there's enough to filter */}
       {showSearch && (
-        <div className="mx-auto mt-4 max-w-md">
+        <div className="mx-auto mt-4 max-w-lg">
           <div className="group relative flex items-center">
             <Search className="pointer-events-none absolute left-3.5 h-4 w-4 text-ink-400 transition-colors group-focus-within:text-honey-400" />
             <input
+              ref={inputRef}
               type="text"
               value={query}
               onChange={(e) => onQueryChange(e.target.value)}
@@ -125,6 +140,36 @@ export default function Hero({
               </span>
             )}
           </div>
+
+          {/* Popular keyword shortcuts — one click = same filter as typing */}
+          <div className="mt-2 flex flex-wrap items-center justify-center gap-1.5">
+            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-500">
+              popular
+            </span>
+            {POPULAR_KEYWORDS.map((kw) => {
+              const active = query.trim().toLowerCase() === kw
+              return (
+                <button
+                  key={kw}
+                  type="button"
+                  onClick={() => {
+                    onQueryChange(active ? '' : kw)
+                    inputRef.current?.focus()
+                  }}
+                  aria-pressed={active}
+                  className={[
+                    'rounded-full border px-2 py-0.5 font-mono text-[11px] transition-colors',
+                    active
+                      ? 'border-honey-500/60 bg-honey-500/10 text-honey-400'
+                      : 'border-ink-600 bg-ink-900 text-ink-300 hover:border-honey-500/40 hover:text-honey-400',
+                  ].join(' ')}
+                >
+                  {kw}
+                </button>
+              )
+            })}
+          </div>
+
           {(query || statusFilter !== 'all') && (
             <div className="mt-1.5 text-center text-[11px] text-ink-500">
               <span className="font-mono text-ink-300">{matchCount}</span> of{' '}
