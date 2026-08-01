@@ -13,7 +13,7 @@
 import { useEffect, useState } from 'react'
 
 import { ThemeEffect } from './stores/theme-store'
-import { useFilter } from './hooks/useFilter'
+import { useFilter, type StatusFilter } from './hooks/useFilter'
 import { SITES_WITH_ICONS, SEARCH_THRESHOLD } from './sites.config'
 import Header from './components/Header'
 import Hero from './components/Hero'
@@ -22,6 +22,7 @@ import Footer from './components/Footer'
 
 function Gateway() {
   const [query, setQuery] = useState('')
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all')
 
   const liveCount = SITES_WITH_ICONS.filter((s) => s.status === 'live').length
   const ongoingCount = SITES_WITH_ICONS.filter((s) => s.status === 'ongoing').length
@@ -30,7 +31,7 @@ function Gateway() {
   // Only render the search box when filtering would actually pay off.
   const showSearch = SITES_WITH_ICONS.length >= SEARCH_THRESHOLD
 
-  const filtered = useFilter(SITES_WITH_ICONS, query)
+  const filtered = useFilter(SITES_WITH_ICONS, query, statusFilter)
 
   // "/" focuses the search box; Escape clears it. Skip when there's no box.
   useEffect(() => {
@@ -42,13 +43,14 @@ function Gateway() {
         e.preventDefault()
         ;(document.querySelector('input[aria-label="Filter projects"]') as HTMLInputElement | null)?.focus()
       }
-      if (e.key === 'Escape' && query) {
+      if (e.key === 'Escape' && (query || statusFilter !== 'all')) {
         setQuery('')
+        setStatusFilter('all')
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [query, showSearch])
+  }, [query, statusFilter, showSearch])
 
   return (
     <div className="flex min-h-screen flex-col bg-ink-950 text-ink-100">
@@ -61,6 +63,8 @@ function Gateway() {
           liveCount={liveCount}
           ongoingCount={ongoingCount}
           soonCount={soonCount}
+          statusFilter={statusFilter}
+          onStatusFilterChange={setStatusFilter}
           showSearch={showSearch}
         />
         <SiteGrid sites={filtered} onClearFilter={() => setQuery('')} />

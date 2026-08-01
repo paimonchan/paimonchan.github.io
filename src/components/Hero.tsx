@@ -9,6 +9,7 @@
  * (see SEARCH_THRESHOLD). Below that the list is faster to scan than to query.
  */
 import { Search, X } from 'lucide-react'
+import type { StatusFilter } from '../hooks/useFilter'
 
 interface HeroProps {
   query: string
@@ -17,6 +18,8 @@ interface HeroProps {
   liveCount: number
   ongoingCount: number
   soonCount: number
+  statusFilter: StatusFilter
+  onStatusFilterChange: (s: StatusFilter) => void
   showSearch: boolean
 }
 
@@ -27,6 +30,8 @@ export default function Hero({
   liveCount,
   ongoingCount,
   soonCount,
+  statusFilter,
+  onStatusFilterChange,
   showSearch,
 }: HeroProps) {
   return (
@@ -52,26 +57,43 @@ export default function Hero({
           .
         </p>
 
-        {/* Stats line — mini badges */}
-        <div className="mt-4 flex items-center justify-center gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-600 bg-ink-800/70 px-2.5 py-0.5 text-[11px]">
-            <span className="h-1.5 w-1.5 rounded-full bg-honey-400" />
-            <span className="font-mono text-ink-100">{liveCount}</span>
-            <span className="text-ink-300">live</span>
-          </span>
+        {/* Stats line — segmented control that filters the grid */}
+        <div
+          role="group"
+          aria-label="Filter projects by status"
+          className="mt-4 inline-flex items-center gap-0.5 rounded-full border border-ink-600 bg-ink-800/70 p-0.5"
+        >
+          <StatusPill
+            active={statusFilter === 'all'}
+            onClick={() => onStatusFilterChange('all')}
+            label="all"
+            count={liveCount + ongoingCount + soonCount}
+            dotClass="bg-ink-400"
+          />
+          <StatusPill
+            active={statusFilter === 'live'}
+            onClick={() => onStatusFilterChange('live')}
+            label="live"
+            count={liveCount}
+            dotClass="bg-honey-400"
+          />
           {ongoingCount > 0 && (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-600 bg-ink-800/70 px-2.5 py-0.5 text-[11px]">
-              <span className="h-1.5 w-1.5 rounded-full bg-honey-600/80" />
-              <span className="font-mono text-ink-100">{ongoingCount}</span>
-              <span className="text-ink-300">ongoing</span>
-            </span>
+            <StatusPill
+              active={statusFilter === 'ongoing'}
+              onClick={() => onStatusFilterChange('ongoing')}
+              label="ongoing"
+              count={ongoingCount}
+              dotClass="bg-honey-600/80"
+            />
           )}
           {soonCount > 0 && (
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-600 bg-ink-800/70 px-2.5 py-0.5 text-[11px]">
-              <span className="h-1.5 w-1.5 rounded-full bg-ink-400" />
-              <span className="font-mono text-ink-100">{soonCount}</span>
-              <span className="text-ink-300">coming</span>
-            </span>
+            <StatusPill
+              active={statusFilter === 'soon'}
+              onClick={() => onStatusFilterChange('soon')}
+              label="coming"
+              count={soonCount}
+              dotClass="bg-ink-400"
+            />
           )}
         </div>
       </div>
@@ -103,14 +125,56 @@ export default function Hero({
               </span>
             )}
           </div>
-          {query && (
+          {(query || statusFilter !== 'all') && (
             <div className="mt-1.5 text-center text-[11px] text-ink-500">
               <span className="font-mono text-ink-300">{matchCount}</span> of{' '}
-              <span className="font-mono">{liveCount + ongoingCount + soonCount}</span> projects
+              <span className="font-mono">
+                {statusFilter === 'all'
+                  ? liveCount + ongoingCount + soonCount
+                  : statusFilter === 'live'
+                    ? liveCount
+                    : statusFilter === 'ongoing'
+                      ? ongoingCount
+                      : soonCount}
+              </span>{' '}
+              projects
             </div>
           )}
         </div>
       )}
     </section>
+  )
+}
+
+/** One clickable status pill in the hero segmented control. */
+function StatusPill({
+  active,
+  onClick,
+  label,
+  count,
+  dotClass,
+}: {
+  active: boolean
+  onClick: () => void
+  label: string
+  count: number
+  dotClass: string
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={[
+        'inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] transition-colors',
+        active
+          ? 'bg-ink-900 text-ink-100 ring-1 ring-inset ring-ink-600'
+          : 'text-ink-300 hover:text-ink-100 hover:bg-ink-900/50',
+      ].join(' ')}
+    >
+      <span className={['h-1.5 w-1.5 rounded-full', dotClass].join(' ')} />
+      <span className="font-mono">{count}</span>
+      <span>{label}</span>
+    </button>
   )
 }
