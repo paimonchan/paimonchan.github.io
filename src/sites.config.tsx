@@ -23,6 +23,7 @@ import {
   Languages,
   Terminal,
   ArrowLeftRight,
+  Scan,
   Globe,
   type LucideProps,
 } from 'lucide-react'
@@ -74,6 +75,7 @@ const ICONS: Record<string, ComponentType<LucideProps>> = {
   'paimon-translate': Languages,
   'paimonchan-term': Terminal,
   'paimon-transfer': ArrowLeftRight,
+  'paimon-scan': Scan,
   paimonitor: Activity,
 }
 

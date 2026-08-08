@@ -164,6 +164,20 @@ export const SITES = [
     features: ['P2P direct', 'No upload', 'No size limit'],
     slug: 'paimon-transfer*',
   },
+  {
+    id: 'paimon-scan',
+    name: 'Paimon Scan',
+    category: 'Coming soon',
+    tagline: 'Manga & manhwa image scanner',
+    description:
+      'Scan manga, manhwa and manhua page images and get results — text detection, OCR and extraction straight from your scans.',
+    url: 'https://github.com/paimonchan/paimon-scan',
+    repo: 'https://github.com/paimonchan/paimon-scan',
+    status: 'soon',
+    keywords: ['scan', 'scanner', 'manga', 'manhwa', 'manhua', 'ocr', 'image', 'detect', 'extract'],
+    features: ['Image scan', 'OCR', 'Text extraction'],
+    slug: 'paimon-scan*',
+  },
 ]
 
 /* --- Home page meta --- */
