@@ -168,14 +168,14 @@ export const SITES = [
     id: 'paimon-scan',
     name: 'Paimon Scan',
     category: 'Coming soon',
-    tagline: 'Manga & manhwa image scanner',
+    tagline: 'Find a manga title from an image',
     description:
-      'Scan manga, manhwa and manhua page images and get results — text detection, OCR and extraction straight from your scans.',
+      'Scan a manga, manhwa or manhua page and find out what series it is — reverse image lookup that returns the title. No more wondering which manga that panel is from.',
     url: 'https://github.com/paimonchan/paimon-scan',
     repo: 'https://github.com/paimonchan/paimon-scan',
     status: 'soon',
-    keywords: ['scan', 'scanner', 'manga', 'manhwa', 'manhua', 'ocr', 'image', 'detect', 'extract'],
-    features: ['Image scan', 'OCR', 'Text extraction'],
+    keywords: ['scan', 'scanner', 'manga', 'manhwa', 'manhua', 'identify', 'title', 'reverse', 'image', 'lookup', 'panel'],
+    features: ['Reverse image search', 'Title lookup', 'Panel matching'],
     slug: 'paimon-scan*',
   },
 ]
