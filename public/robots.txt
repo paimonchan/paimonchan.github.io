@@ -4,5 +4,6 @@
 User-agent: *
 Allow: /
 
-# Point crawlers at the sitemap for faster, more complete indexing.
+# Point crawlers at the sitemaps for faster, more complete indexing.
 Sitemap: https://paimonchan.github.io/sitemap.xml
+Sitemap: https://paimonchan.github.io/paimon-tools/sitemap.xml
